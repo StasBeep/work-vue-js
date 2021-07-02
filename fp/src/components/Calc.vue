@@ -11,6 +11,7 @@
             <button v-on:click="sum = operand1 * operand2">*</button>
             <button v-on:click="div">/</button>
             <button @click="degree">^</button>
+            <button @click="whole">[ ]</button>
         </div>
     </div>
 </template>
@@ -24,14 +25,20 @@ export default {
         sum: 0
     }),
     methods: {
-        // Деление
+        // Деление (не полное / нужно доделать)
         div() {
-            this.sum = this.operand1 / this.operand2
+            this.sum = this.operand1 / this.operand2;
+            return this.sum;
         },
 
         // Возведение в степень
         degree() {
             this.sum = Math.pow(this.operand1, this.operand2)
+        },
+
+        // Округление и выделение целой части
+        whole() {
+            this.sum = Math.round(this.div());
         }
     }
 }
