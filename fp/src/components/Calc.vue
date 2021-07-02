@@ -13,6 +13,7 @@
             <button @click="degree">^</button>
             <button @click="whole">[ ]</button>
         </div>
+        <span class="error" v-if="show">на 0 делить нельзя!!!</span>
     </div>
 </template>
 
@@ -22,13 +23,19 @@ export default {
     data:() => ({
         operand1: 0,
         operand2: 0,
-        sum: 0
+        sum: 0,
+        show: false
     }),
     methods: {
-        // Деление (не полное / нужно доделать)
+        // Деление
         div() {
-            this.sum = this.operand1 / this.operand2;
-            return this.sum;
+            if(this.operand2 != 0){
+                this.show = false;
+                this.sum = this.operand1 / this.operand2;
+                return this.sum;
+            } else {
+                this.show = true;
+            }
         },
 
         // Возведение в степень
@@ -45,5 +52,8 @@ export default {
 </script>
 
 <style>
-
+    .error {
+        color: red;
+        text-transform: uppercase;
+    }
 </style>
