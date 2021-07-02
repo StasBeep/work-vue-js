@@ -10,10 +10,8 @@
             <button @click="sum = operand1 - operand2">-</button>
             <button v-on:click="sum = operand1 * operand2">*</button>
             <button v-on:click="div">/</button>
-            <button @click="eventFn">Event</button>
+            <button @click="degree">^</button>
         </div>
-        <!--<div v-on:mouseover=""></div>-->
-        result : {{ sum }}
     </div>
 </template>
 
@@ -26,12 +24,14 @@ export default {
         sum: 0
     }),
     methods: {
-        eventFn() {
-            console.log(arguments)
-        },
-
+        // Деление
         div() {
             this.sum = this.operand1 / this.operand2
+        },
+
+        // Возведение в степень
+        degree() {
+            this.sum = Math.pow(this.operand1, this.operand2)
         }
     }
 }
