@@ -9,7 +9,8 @@
             <button @click="sum = operand1 + operand2">+</button>
             <button @click="sum = operand1 - operand2">-</button>
             <button v-on:click="sum = operand1 * operand2">*</button>
-            <button>Event</button>
+            <button v-on:click="div">/</button>
+            <button @click="eventFn">Event</button>
         </div>
         <!--<div v-on:mouseover=""></div>-->
         result : {{ sum }}
@@ -23,7 +24,16 @@ export default {
         operand1: 0,
         operand2: 0,
         sum: 0
-    })
+    }),
+    methods: {
+        eventFn() {
+            console.log(arguments)
+        },
+
+        div() {
+            this.sum = this.operand1 / this.operand2
+        }
+    }
 }
 </script>
 
