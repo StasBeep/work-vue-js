@@ -10,10 +10,10 @@
             <button @click="sum = operand1 - operand2">-</button>
             <button v-on:click="sum = operand1 * operand2">*</button>
             <button v-on:click="div">/</button>
-            <button @click="eventFn">Event</button>
+            <button @click="degree">^</button>
+            <button @click="whole">[ ]</button>
         </div>
-        <!--<div v-on:mouseover=""></div>-->
-        result : {{ sum }}
+        <span class="error" v-if="show">на 0 делить нельзя!!!</span>
     </div>
 </template>
 
@@ -23,20 +23,38 @@ export default {
     data:() => ({
         operand1: 0,
         operand2: 0,
-        sum: 0
+        sum: 0,
+        show: false
     }),
     methods: {
-        eventFn() {
-            console.log(arguments)
+        // Деление
+        div() {
+            if(this.operand2 != 0){
+                this.show = false;
+                this.sum = this.operand1 / this.operand2;
+                // Если ничего не возвращать, то метод whole() не будет выполняться
+                return this.sum;
+            } else {
+                this.show = true;
+            }
         },
 
-        div() {
-            this.sum = this.operand1 / this.operand2
+        // Возведение в степень
+        degree() {
+            this.sum = Math.pow(this.operand1, this.operand2)
+        },
+
+        // Округление и выделение целой части
+        whole() {
+            this.sum = Math.round(this.div());
         }
     }
 }
 </script>
 
 <style>
-
+    .error {
+        color: red;
+        text-transform: uppercase;
+    }
 </style>
