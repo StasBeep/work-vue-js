@@ -1,21 +1,30 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    <Calc/>
+
+    <HelloWorld 
+      msg="message" 
+      :myArr="arr"
+    />
     Text : {{ message }} длина {{ message.length }}
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Calc from './components/Calc.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Calc
   },
   data:() => ({
-    message: "Ваша реклама"
+    message: "Ваша реклама",
+    arr: [1,2,3,4,5]
   })
 }
 </script>
