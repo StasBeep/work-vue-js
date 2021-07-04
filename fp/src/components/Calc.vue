@@ -32,6 +32,7 @@ export default {
             if(this.operand2 != 0){
                 this.show = false;
                 this.sum = this.operand1 / this.operand2;
+                // Если ничего не возвращать, то метод whole() не будет выполняться
                 return this.sum;
             } else {
                 this.show = true;
