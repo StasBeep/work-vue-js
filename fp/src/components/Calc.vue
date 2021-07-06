@@ -3,27 +3,13 @@
         <div>
             <input type="number" 
                     placeholder="op1" 
-                    v-model.number="operand1
-            "> 
+                    v-model.number="operand1"
+            > 
             <input type="number" 
                     placeholder="op2" 
-                    v-model.number="operand2
-            ">
+                    v-model.number="operand2"
+            >
             = {{ result }} - {{ fibResult }}
-        </div>
-        <div>
-            <button @click="calculate()">+</button>
-            <button @click="calculate('-')">-</button>
-            <button v-on:click="calculate('*')">*</button>
-            <button v-on:click="calculate('/')">/</button>
-            <button @click="calculate('^')">^</button>
-            <button @click="calculate('[ ]')">[ ]</button>
-        </div>
-        <input type="checkbox">
-        <div class="collection">
-            <div v-for="(item, idx) in collection" :key="idx">
-                {{idx + 1}} - {{ item }}
-            </div>
         </div>
         <div class="buttons">
             <button v-for="btn in buttons" 
@@ -32,6 +18,14 @@
             ">
                     {{ btn }}
             </button>
+        </div>
+        <input type="checkbox" 
+                @click="check = !check"
+        >
+        <div class="collection" v-if="check">
+            <div v-for="(item, idx) in collection" :key="idx">
+                {{idx + 1}} - {{ item }}
+            </div>
         </div>
         <span class="error" v-show="error">{{ error }}</span>
         <div class="strange-message">
@@ -57,6 +51,7 @@ export default {
         fibResult: 0,
         logs: {},
         error: "",
+        check: false,
     }),
 
     // Ослеживание данных
