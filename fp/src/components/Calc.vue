@@ -29,6 +29,7 @@ export default {
     methods: {
 
         // Оптимизация работы калькулятора
+        /*
         calculate(operation = "+") {
             switch(operation) {
                 case "+":
@@ -50,8 +51,19 @@ export default {
                     this.whole();
                     break;
             }
-        },
+        },*/
 
+        calculate(op = "+") {
+            const calcOperations = {
+                '+': () => this.operand1 + this.operand2,
+                '-': () => this.operand1 - this.operand2,
+                '*': () => this.operand1 * this.operand2,
+                '/': () => this.operand1 / this.operand2,
+                '^': () =>  Math.pow(this.operand1, this.operand2),
+                '[ ]': () => Math.round(this.div()),
+            }
+            this.result = calcOperations[op]()
+        },
         // Cложение
         add() {
             this.result = this.operand1 + this.operand2
