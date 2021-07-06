@@ -2,29 +2,60 @@
     <div>
         <div>
             <input type="number" 
+                    id="op1"
                     placeholder="op1" 
                     v-model.number="operand1"
             > 
             <input type="number" 
+                    id="op2"
                     placeholder="op2" 
                     v-model.number="operand2"
             >
-            = {{ result }} - {{ fibResult }}
+            = {{ result }} - {{ operand1 }}
         </div>
         <div class="buttons">
             <button v-for="btn in buttons" 
                     :key="btn" 
-                    @click="calculate(btn)
-            ">
+                    @click="calculate(btn)"
+            >
                     {{ btn }}
             </button>
         </div>
         <input type="checkbox" 
                 @click="check = !check"
         >
-        <div class="collection" v-if="check">
-            <div v-for="(item, idx) in collection" :key="idx">
-                {{idx + 1}} - {{ item }}
+        <!-- v-if="check" -->
+        <div class="collection">
+            <button v-for="itemNum in collection" 
+                    :key="itemNum"
+                    @click="pushEl(itemNum, radioInp)"
+            >
+                {{ itemNum }}
+            </button>
+            <div>
+                <input 
+                    type="radio" 
+                    name="operand" 
+                    id="radio1"
+                    @click="radioInp = true"
+                    checked
+                >
+                <label for="radio1"
+                    @click="radioInp = true"
+                >
+                    Операнд 1
+                </label>
+                <input 
+                    type="radio" 
+                    name="operand" 
+                    id="radio2"
+                    @click="radioInp = false"
+                >
+                <label for="radio2" 
+                    @click="radioInp = false"
+                >
+                    Операнд 2
+                </label>
             </div>
         </div>
         <span class="error" v-show="error">{{ error }}</span>
@@ -47,11 +78,12 @@ export default {
         operand2: 0,
         result: 0,
         buttons: ['+', '-', '*', '/', '^', '[ ]'],
-        collection: [1,2,3,4,5,6,7,8,9,0],
+        collection: [0,1,2,3,4,5,6,7,8,9,"<"],
         fibResult: 0,
         logs: {},
         error: "",
         check: false,
+        radioInp: true,
     }),
 
     // Ослеживание данных
@@ -64,6 +96,9 @@ export default {
             handler() {
                 console.log('deep');
             }
+        },
+        operand1: function(newValue, oldValue) {
+            console.log(newValue, oldValue);
         }
     },
 
@@ -122,7 +157,8 @@ export default {
         add() {
             this.result = this.operand1 + this.operand2;
             //this.fibResult = this.fib(this.operand1) + this.fib(this.operand2);
-            this.fibResult = this.fib1 + this.fib2;
+            // Слишком объёмная задача, снял её с действия
+            //this.fibResult = this.fib1 + this.fib2;
         },
         // Вычитание
         substract () {
@@ -151,11 +187,40 @@ export default {
         // Округление и выделение целой части
         whole() {
             this.result = Math.round(this.div());
+        },
+
+        pushEl(elBtn, op) {
+            if(op){
+                const inp = document.getElementById('op1');
+                //console.log(inp);
+                if(elBtn != '<'){
+                    this.pushNum(inp, elBtn);
+                } else {
+                    this.operand1 = this.deleteNum(this.operand1, inp);
+                }
+            }
+            //console.log(inp1.value = inp1.value + btnNum);
+            //this.operand1 = parseFloat(inp1.value);
+        },
+
+        pushNum(i, n) {
+            i.value += n;
+            this.operand1 = parseFloat(i.value);
+        },
+
+        deleteNum(operator, i){
+            let str = "";
+            for(let j = 0; j < operator.toString().length - 1; j++){
+                str += operator.toString()[j];
+            }
+            operator = parseFloat(str);
+            i.value = operator;
+            return operator;
         }
     },
     // Вычисляемые свойства
     computed: {
-        fib1() {
+        /*fib1() {
             console.log(this.fib(this.operand1))
             return this.fib(this.operand1)
         },
@@ -163,7 +228,7 @@ export default {
         fib2() {
             console.log(this.fib(this.operand2))
             return this.fib(this.operand2)
-        }
+        }*/
     }
 }
 </script>
