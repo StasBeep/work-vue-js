@@ -9,7 +9,7 @@
                     placeholder="op2" 
                     v-model.number="operand2
             ">
-            = {{ result }}
+            = {{ result }} - {{ fibResult }}
         </div>
         <div>
             <button @click="calculate()">+</button>
@@ -53,10 +53,29 @@ export default {
         result: 0,
         buttons: ['+', '-', '*', '/', '^', '[ ]'],
         collection: [1,2,3,4,5,6,7,8,9,0],
+        fibResult: 0,
         logs: {},
         error: "",
     }),
+
+    // Ослеживание данных
+    watch: {
+        result: function(newValue, oldValue) {
+            console.log(newValue, oldValue);
+        },
+        logs: {
+            deep: true,
+            handler() {
+                console.log('deep');
+            }
+        }
+    },
+
     methods: {
+
+        fib(n){
+            return n <= 1 ? n : this.fib(n - 1) + this.fib(n - 2);
+        },
 
         // Оптимизация работы калькулятора (switch)
         calculate(operation = "+") {
@@ -105,7 +124,9 @@ export default {
 
         // Cложение
         add() {
-            this.result = this.operand1 + this.operand2
+            this.result = this.operand1 + this.operand2;
+            //this.fibResult = this.fib(this.operand1) + this.fib(this.operand2);
+            this.fibResult = this.fib1 + this.fib2;
         },
         // Вычитание
         substract () {
@@ -134,6 +155,18 @@ export default {
         // Округление и выделение целой части
         whole() {
             this.result = Math.round(this.div());
+        }
+    },
+    // Вычисляемые свойства
+    computed: {
+        fib1() {
+            console.log(this.fib(this.operand1))
+            return this.fib(this.operand1)
+        },
+
+        fib2() {
+            console.log(this.fib(this.operand2))
+            return this.fib(this.operand2)
         }
     }
 }
