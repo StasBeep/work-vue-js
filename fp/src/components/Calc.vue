@@ -19,6 +19,19 @@
             <button @click="calculate('^')">^</button>
             <button @click="calculate('[ ]')">[ ]</button>
         </div>
+        <div class="collection">
+            <div v-for="(item, idx) in collection" :key="idx">
+                {{idx + 1}} - {{ item }}
+            </div>
+        </div>
+        <div class="buttons">
+            <button v-for="btn in buttons" 
+                    :key="btn" 
+                    @click="calculate(btn)
+            ">
+                    {{ btn }}
+            </button>
+        </div>
         <span class="error" v-show="error">{{ error }}</span>
         <div class="strange-message">
             <template v-if="result < 0">Отрицательное число</template>
@@ -35,7 +48,8 @@ export default {
         operand1: 0,
         operand2: 0,
         result: 0,
-        show: false,
+        buttons: ['+', '-', '*', '/', '^', '[ ]'],
+        collection: [1,2,3,4,5,6,7,8,9,0],
         error: "",
     }),
     methods: {
@@ -95,12 +109,10 @@ export default {
         // Деление
         div() {
             if(this.operand2 != 0){
-                this.show = false;
                 this.result = this.operand1 / this.operand2;
                 // Если ничего не возвращать, то метод whole() не будет выполняться
                 return this.result;
             } else {
-                this.show = true;
                 this.error = "На 0 делить нельзя!!!";
             }
         },
