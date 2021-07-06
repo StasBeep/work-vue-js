@@ -19,6 +19,7 @@
             <button @click="calculate('^')">^</button>
             <button @click="calculate('[ ]')">[ ]</button>
         </div>
+        <input type="checkbox">
         <div class="collection">
             <div v-for="(item, idx) in collection" :key="idx">
                 {{idx + 1}} - {{ item }}
