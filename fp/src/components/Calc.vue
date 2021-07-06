@@ -3,12 +3,12 @@
         <div>
             <input type="number" placeholder="op1" v-model.number="operand1"> 
             <input type="number" placeholder="op2" v-model.number="operand2">
-            = {{ sum }}
+            = {{ result }}
         </div>
         <div>
-            <button @click="sum = operand1 + operand2">+</button>
-            <button @click="sum = operand1 - operand2">-</button>
-            <button v-on:click="sum = operand1 * operand2">*</button>
+            <button @click="add">+</button>
+            <button @click="substract">-</button>
+            <button v-on:click="multiply">*</button>
             <button v-on:click="div">/</button>
             <button @click="degree">^</button>
             <button @click="whole">[ ]</button>
@@ -23,17 +23,29 @@ export default {
     data:() => ({
         operand1: 0,
         operand2: 0,
-        sum: 0,
+        result: 0,
         show: false
     }),
     methods: {
+        // Cложение
+        add() {
+            this.result = this.operand1 + this.operand2
+        },
+        // Вычитание
+        substract () {
+            this.result = this.operand1 - this.operand2
+        },
+        // Умножение 
+        multiply() {
+            this.result = this.operand1 * this.operand2
+        },
         // Деление
         div() {
             if(this.operand2 != 0){
                 this.show = false;
-                this.sum = this.operand1 / this.operand2;
+                this.result = this.operand1 / this.operand2;
                 // Если ничего не возвращать, то метод whole() не будет выполняться
-                return this.sum;
+                return this.result;
             } else {
                 this.show = true;
             }
@@ -41,12 +53,12 @@ export default {
 
         // Возведение в степень
         degree() {
-            this.sum = Math.pow(this.operand1, this.operand2)
+            this.result = Math.pow(this.operand1, this.operand2)
         },
 
         // Округление и выделение целой части
         whole() {
-            this.sum = Math.round(this.div());
+            this.result = Math.round(this.div());
         }
     }
 }
