@@ -1,8 +1,14 @@
 <template>
     <div>
         <div>
-            <input type="number" placeholder="op1" v-model.number="operand1"> 
-            <input type="number" placeholder="op2" v-model.number="operand2">
+            <input type="number" 
+                    placeholder="op1" 
+                    v-model.number="operand1
+            "> 
+            <input type="number" 
+                    placeholder="op2" 
+                    v-model.number="operand2
+            ">
             = {{ result }}
         </div>
         <div>
@@ -13,7 +19,12 @@
             <button @click="calculate('^')">^</button>
             <button @click="calculate('[ ]')">[ ]</button>
         </div>
-        <span class="error" v-if="show">на 0 делить нельзя!!!</span>
+        <span class="error" v-show="error">{{ error }}</span>
+        <div class="strange-message">
+            <template v-if="result < 0">Отрицательное число</template>
+            <template v-else-if="result < 100">Число меньше 100</template>
+            <template v-else>Число больше 100</template>
+        </div>
     </div>
 </template>
 
@@ -24,13 +35,15 @@ export default {
         operand1: 0,
         operand2: 0,
         result: 0,
-        show: false
+        show: false,
+        error: "",
     }),
     methods: {
 
-        // Оптимизация работы калькулятора
-        /*
+        // Оптимизация работы калькулятора (switch)
         calculate(operation = "+") {
+            this.error = "";
+
             switch(operation) {
                 case "+":
                     this.add();
@@ -51,9 +64,10 @@ export default {
                     this.whole();
                     break;
             }
-        },*/
+        },
 
-        calculate(op = "+") {
+        // Калькулятор через объекты и ключи
+        /*calculate(op = "+") {
             const calcOperations = {
                 '+': () => this.operand1 + this.operand2,
                 '-': () => this.operand1 - this.operand2,
@@ -63,7 +77,9 @@ export default {
                 '[ ]': () => Math.round(this.div()),
             }
             this.result = calcOperations[op]()
-        },
+        },*/
+
+
         // Cложение
         add() {
             this.result = this.operand1 + this.operand2
@@ -85,6 +101,7 @@ export default {
                 return this.result;
             } else {
                 this.show = true;
+                this.error = "На 0 делить нельзя!!!";
             }
         },
 
@@ -101,7 +118,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .error {
         color: red;
         text-transform: uppercase;
