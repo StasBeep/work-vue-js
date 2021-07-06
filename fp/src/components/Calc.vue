@@ -11,7 +11,7 @@
                     placeholder="op2" 
                     v-model.number="operand2"
             >
-            = {{ result }} - {{ operand1 }}
+            = {{ result }} - {{ fibResult }}
         </div>
         <div class="buttons">
             <button v-for="btn in buttons" 
@@ -194,18 +194,24 @@ export default {
                 const inp = document.getElementById('op1');
                 //console.log(inp);
                 if(elBtn != '<'){
-                    this.pushNum(inp, elBtn);
+                    this.operand1 = this.pushNum(this.operand1, inp, elBtn);
                 } else {
                     this.operand1 = this.deleteNum(this.operand1, inp);
                 }
+            } else {
+                const inp = document.getElementById('op2');
+                if(elBtn != '<'){
+                    this.operand2 = this.pushNum(this.operand2, inp, elBtn);
+                } else {
+                    this.operand2 = this.deleteNum(this.operand2, inp);
+                }
             }
-            //console.log(inp1.value = inp1.value + btnNum);
-            //this.operand1 = parseFloat(inp1.value);
         },
 
-        pushNum(i, n) {
+        pushNum(operator, i, n) {
             i.value += n;
-            this.operand1 = parseFloat(i.value);
+            operator = parseFloat(i.value);
+            return operator;
         },
 
         deleteNum(operator, i){
