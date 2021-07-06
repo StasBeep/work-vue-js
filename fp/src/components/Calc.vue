@@ -6,12 +6,12 @@
             = {{ result }}
         </div>
         <div>
-            <button @click="add">+</button>
-            <button @click="substract">-</button>
-            <button v-on:click="multiply">*</button>
-            <button v-on:click="div">/</button>
-            <button @click="degree">^</button>
-            <button @click="whole">[ ]</button>
+            <button @click="calculate()">+</button>
+            <button @click="calculate('-')">-</button>
+            <button v-on:click="calculate('*')">*</button>
+            <button v-on:click="calculate('/')">/</button>
+            <button @click="calculate('^')">^</button>
+            <button @click="calculate('[ ]')">[ ]</button>
         </div>
         <span class="error" v-if="show">на 0 делить нельзя!!!</span>
     </div>
@@ -27,6 +27,31 @@ export default {
         show: false
     }),
     methods: {
+
+        // Оптимизация работы калькулятора
+        calculate(operation = "+") {
+            switch(operation) {
+                case "+":
+                    this.add();
+                    break;
+                case "-":
+                    this.substract();
+                    break;
+                case "*":
+                    this.multiply();
+                    break;
+                case "/":
+                    this.div();
+                    break;
+                case "^":
+                    this.degree();
+                    break;
+                case "[ ]":
+                    this.whole();
+                    break;
+            }
+        },
+
         // Cложение
         add() {
             this.result = this.operand1 + this.operand2
