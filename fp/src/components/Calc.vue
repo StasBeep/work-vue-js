@@ -38,6 +38,9 @@
             <template v-else-if="result < 100">Число меньше 100</template>
             <template v-else>Число больше 100</template>
         </div>
+        <div class="logs">
+            {{ logs }}
+        </div>
     </div>
 </template>
 
@@ -50,6 +53,7 @@ export default {
         result: 0,
         buttons: ['+', '-', '*', '/', '^', '[ ]'],
         collection: [1,2,3,4,5,6,7,8,9,0],
+        logs: {},
         error: "",
     }),
     methods: {
@@ -78,6 +82,11 @@ export default {
                     this.whole();
                     break;
             }
+
+            
+            const key = Date.now();
+            const value = `${this.operand1} ${operation} ${this.operand2} = ${this.result}`;
+            this.$set(this.logs, key, value);
         },
 
         // Калькулятор через объекты и ключи
