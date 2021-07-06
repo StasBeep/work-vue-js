@@ -23,9 +23,11 @@
         </div>
         <input type="checkbox" 
                 @click="check = !check"
+                id="dispKeyboard"
         >
+        <label for="dispKeyboard">Отобразить экранную клавиатуру</label>
         <!-- v-if="check" -->
-        <div class="collection">
+        <div class="collection" v-if="check">
             <button v-for="itemNum in collection" 
                     :key="itemNum"
                     @click="pushEl(itemNum, radioInp)"
