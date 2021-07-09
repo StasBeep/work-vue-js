@@ -1,10 +1,10 @@
 <template>
-    <button @click="onClick">Clicked {{ counter }}</button>
+    <button @click="onClick">Hover {{ counter }}</button>
 </template>
 
 <script>
 export default {
-    name: "Button",
+    name: "ButtonHover",
 
     data() {
         return {
@@ -13,8 +13,8 @@ export default {
     },
 
     methods: {
-        onClick() {
-            this.counter++;
+        onMouseOver() {
+            console.log('Hovered on Button');
         }
     },
 
