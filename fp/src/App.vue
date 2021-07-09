@@ -9,20 +9,31 @@
       :myArr="arr"
     />
     Text : {{ message }} длина {{ message.length }}
+
+    <div>
+          <Button v-if="!show"/>
+          <div v-if="show">
+            <Button />
+          </div>
+          <!-- <button @click="show = !show">Change</button> -->
+    </div>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Calc from './components/Calc.vue'
+import Button from './components/Button.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Calc
+    Calc,
+    Button,
   },
   data:() => ({
+    show: false,
     message: "Ваша реклама",
     arr: [1,2,3,4,5]
   })
