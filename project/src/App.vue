@@ -4,6 +4,8 @@
       <h1>My personal cost</h1>
     </header>
     <main>
+      <AddPayment />
+      <br>
       <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
@@ -12,12 +14,14 @@
 <script>
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
+import AddPayment from './components/AddPayment.vue'
 
 export default {
   name: 'App',
   
   components: {
-    PaymentsDisplay
+    PaymentsDisplay,
+    AddPayment
   },
 
   data: () => ({
