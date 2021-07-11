@@ -22,7 +22,29 @@ export default {
 
   data: () => ({
     paymentsList: [1, 2, 3, 4,5]
-  })
+  }),
+
+  methods: {
+    fetchData() {
+      return [
+        {
+          data: "28.03.2020",
+          category: "Food",
+          value: 169
+        },
+        {
+          data: "20.04.2021",
+          category: "Sport",
+          value: 400
+        },
+        {
+          data: "20.05.2021",
+          category: "Internet",
+          value: 200
+        },
+      ]
+    }
+  }
 }
 </script>
 
