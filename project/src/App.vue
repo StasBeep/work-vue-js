@@ -4,19 +4,25 @@
       <h1>My personal cost</h1>
     </header>
     <main>
-
+      <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
 </template>
 
 <script>
 
+import PaymentsDisplay from './components/PaymentsDisplay.vue'
 
 export default {
   name: 'App',
+  
   components: {
-    
-  }
+    PaymentsDisplay
+  },
+
+  data: () => ({
+    paymentsList: [1, 2, 3, 4,5]
+  })
 }
 </script>
 
@@ -31,6 +37,6 @@ export default {
 }
 
 .wrapper {
-  background: #2c3e50;
+  
 }
 </style>
