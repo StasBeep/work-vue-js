@@ -2,7 +2,7 @@
     <div>
         <input v-model="date" placeholder="date">
         <input v-model="category" placeholder="category">
-        <input v-model="value" placeholder="value">
+        <input v-model.number="value" type="number" placeholder="value">
         <button @click="onClick">Add Data</button>
     </div>
 </template>
@@ -27,7 +27,7 @@ export default {
                 category,
                 value
             }
-
+            // console.log(data);
             // Вызов события, название события и аргументы
 
             this.$emit('addNewPayment', data);

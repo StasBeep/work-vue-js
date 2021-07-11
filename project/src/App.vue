@@ -4,7 +4,7 @@
       <h1>My personal cost</h1>
     </header>
     <main>
-      <AddPayment />
+      <AddPayment @addNewPayment="addData" />
       <br>
       <PaymentsDisplay :list="paymentsList"/>
     </main>
@@ -29,6 +29,11 @@ export default {
   }),
 
   methods: {
+    addData(data) {
+      console.log(data);
+      this.paymentsList.push(data);
+    },
+
     fetchData() {
       return [
         {
