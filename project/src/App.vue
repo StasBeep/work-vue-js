@@ -21,7 +21,7 @@ export default {
   },
 
   data: () => ({
-    paymentsList: [1, 2, 3, 4,5]
+    paymentsList: []
   }),
 
   methods: {
@@ -44,7 +44,13 @@ export default {
         },
       ]
     }
-  }
+  },
+
+  // Хук (компонент ещё не смонтирован)
+    created() {
+      // реактивность
+      this.paymentsList = this.fetchData()
+    }
 }
 </script>
 
