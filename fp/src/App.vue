@@ -11,7 +11,7 @@
     Text : {{ message }} длина {{ message.length }}
 
     <div>
-          <Button v-if="!show"/>
+          <ButtonHover />
           <div v-if="show">
             <Button />
           </div>
@@ -24,6 +24,7 @@
 import HelloWorld from './components/HelloWorld.vue'
 import Calc from './components/Calc.vue'
 import Button from './components/Button.vue'
+import ButtonHover from './components/ButtonHover.vue'
 
 export default {
   name: 'App',
@@ -31,6 +32,7 @@ export default {
     HelloWorld,
     Calc,
     Button,
+    ButtonHover,
   },
   data:() => ({
     show: false,

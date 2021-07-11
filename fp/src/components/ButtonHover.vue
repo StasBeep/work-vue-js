@@ -1,16 +1,10 @@
 <template>
-    <button @click="onClick">Hover {{ counter }}</button>
+    <button class="btn">Hover</button>
 </template>
 
 <script>
 export default {
     name: "ButtonHover",
-
-    data() {
-        return {
-            counter: 0
-        }
-    },
 
     methods: {
         onMouseOver() {
@@ -33,6 +27,9 @@ export default {
     },
 
     mounted() {
+        if(this.$el) {
+            this.$el.addEventListener('mouseover', this.onMouseOver);
+        }
         console.log('mounted');
     },
 
@@ -46,9 +43,12 @@ export default {
 
     // Разрушение компонента
     beforeDestroy() {
-
+        // Отписка от слушателя (чтобы экономитть место)
+        // Происходит само разрушение
+        this.$el.removeEventListener('mouseover', this.onMouseOver)
     },
 
+    // Используется, когда копонент вырезан из DOM дерева
     destroyed() {
         
     }
