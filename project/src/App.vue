@@ -31,7 +31,9 @@ export default {
   methods: {
     addData(data) {
       console.log(data);
-      this.paymentsList.push(data);
+      // this.paymentsList.push(data);
+      // Второй метод вывода
+      this.paymentsList = [...this.paymentsList, data];
     },
 
     fetchData() {
