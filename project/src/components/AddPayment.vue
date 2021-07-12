@@ -2,10 +2,10 @@
     <div>
         <button class="btn-hide" v-show="show" @click="show = !show">add new cost +</button>
         <div v-show="!show">
-            <input v-model="date" placeholder="date">
-            <input v-model="category" placeholder="category">
-            <input v-model.number="value" type="number" placeholder="value">
-            <button @click="onClick">Add Data</button>
+            <input v-model="date" class="enter-input" placeholder="date">
+            <input v-model="category" class="enter-input" placeholder="category">
+            <input v-model.number="value" class="enter-input" type="number" placeholder="value">
+            <button @click="onClick" class="btn-add">Add Data</button>
             <button class="btn-hide" @click="show = !show">hide -</button>
         </div>
     </div>
@@ -57,11 +57,31 @@ export default {
         border: none;
         cursor: pointer;
         color: white;
-        transition: 2s ease;
+        transition: 1s ease;
     }
 
     .btn-hide:hover {
         color: black;
         transform: scale(1.1);
+    }
+
+    .btn-add {
+        padding: 8px 20px;
+        border: none;
+        background: red;
+        cursor: pointer;
+        color: white;
+        transition: 1s ease;
+    }
+
+    .btn-add:hover {
+        color: black;
+        transform: scale(1.1);
+    }
+
+    .enter-input {
+        padding: 6px 10px;
+        border: 1px solid grey;
+        outline: none;
     }
 </style>
