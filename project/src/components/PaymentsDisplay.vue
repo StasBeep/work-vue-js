@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    // ОТображение данных
+    // Отображение данных
     name: "PaymentsDisplay",
 
     props: {
