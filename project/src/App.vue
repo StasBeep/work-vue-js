@@ -31,9 +31,13 @@ export default {
 
   methods: {
     // Для универсальной записи
-    ...mapMutations([
-      'setPaymentListData'
-    ]),
+    // Список мутаций
+    ...mapMutations({
+      // Своё название мутаций, по отношению к основной
+      // мутации (через объект)
+      updatePayment: 'setPaymentListData',
+      
+    }),
 
     addData(data) {
       console.log(data);
@@ -74,7 +78,7 @@ export default {
     // this.$store.commit('setPaymentListData', this.fetchData())
 
     // Адаптивная и универсальная запись при помощи spread
-    this.setPaymentListData(this.fetchData());
+    this.updatePayment(this.fetchData());
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
