@@ -15,6 +15,7 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'App',
@@ -29,6 +30,11 @@ export default {
   }),
 
   methods: {
+    // Для универсальной записи
+    ...mapMutations([
+      'setPaymentListData'
+    ]),
+
     addData(data) {
       console.log(data);
       // this.paymentsList.push(data);
@@ -63,7 +69,12 @@ export default {
   // Хук (компонент ещё не смонтирован)
   created() {
     // реативность с хранилищем
-    this.$store.commit('setPaymentListData', this.fetchData())
+    // Тяжёлая запись через commit и $store, можно проще
+    // через mapMutations
+    // this.$store.commit('setPaymentListData', this.fetchData())
+
+    // Адаптивная и универсальная запись при помощи spread
+    this.setPaymentListData(this.fetchData());
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
