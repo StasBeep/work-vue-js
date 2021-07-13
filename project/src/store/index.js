@@ -6,12 +6,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     // Начальная точка отсчёта (состояние)
     state: {
-        
+        paymentsList: []
     },
 
     // Изменение данных
     mutations: {
-
+        // Метод добавления/изменения данных
+        setPaymentListData(state, payload) {
+            state.paymentsList = payload;
+        }
     },
 
     // Запускают mutations

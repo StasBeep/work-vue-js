@@ -57,11 +57,17 @@ export default {
     }
   },
 
+  /**
+   * Эмитация загрузки данных
+   */
   // Хук (компонент ещё не смонтирован)
-    created() {
-      // реактивность
-      this.paymentsList = this.fetchData()
-    }
+  created() {
+    // реативность с хранилищем
+    this.$store.commit('setPaymentListData', this.fetchData())
+
+    // реактивность (без хранилища)
+    // this.paymentsList = this.fetchData()
+  }
 }
 </script>
 
