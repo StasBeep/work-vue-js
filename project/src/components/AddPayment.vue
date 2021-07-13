@@ -26,7 +26,7 @@ export default {
         onClick() {
             const { category, value } = this
             const data = {
-                date: this.date || this.getCurrentDate,
+                data: this.date || this.getCurrentDate,
                 category,
                 value
             }
