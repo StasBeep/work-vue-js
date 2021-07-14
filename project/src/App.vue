@@ -6,6 +6,7 @@
     <main>
       <AddPayment @addNewPayment="addData" />
       <br>
+      <CategorySelect :categoryList="categoryList" />
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="paymentsList"/>
@@ -17,6 +18,7 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
+import CategorySelect from './components/CategorySelect.vue'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -24,14 +26,16 @@ export default {
   
   components: {
     PaymentsDisplay,
-    AddPayment
+    AddPayment,
+    CategorySelect
   },
 
   methods: {
     // Для универсальной записи
     // Список mapActions
     ...mapActions([
-      'fetchData'
+      'fetchData',
+      'fetchCategory'
     ]),
 
     // Список мутаций
@@ -82,7 +86,8 @@ export default {
   computed: {
     // Список getters
     ...mapGetters({
-      paymentsList: 'getPaymentList'
+      paymentsList: 'getPaymentList',
+      categoryList: 'getCategoryList'
     }),
 
     getFPV() {
@@ -109,6 +114,9 @@ export default {
     // this.setPaymentListData(this.fetchData());
 
     this.fetchData();
+    if(!this.categoryList.length) {
+      this.fetchCategory();
+    }
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()

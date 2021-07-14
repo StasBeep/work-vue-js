@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     // Начальная точка отсчёта (состояние)
     state: {
-        paymentsList: []
+        paymentsList: [],
+        categoryList: []
     },
 
     // Изменение данных
@@ -25,6 +26,10 @@ export default new Vuex.Store({
             state.paymentsList[payload.idx] = payload;
             state.paymentsList = [...state.paymentsList];
             // Vue.set(state.paymentsList, 0, payload);
+        },
+
+        setCategoryList(state, payload) {
+            state.categoryList = payload;
         }
     },
 
@@ -47,6 +52,16 @@ export default new Vuex.Store({
             }).then(res => {
                 commit('setPaymentListData', res);
             })
+        },
+
+        fetchCategory({ commit }) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(['Food', 'Sport', 'Education', 'Family', 'Auto', 'Health'])
+                }, 1000)
+            }).then(res => {
+                commit('setCategoryList', res)
+            })
         }
     },
 
@@ -59,6 +74,8 @@ export default new Vuex.Store({
         // Считает все наши затраты
         getFullPaymentValue: state => {
             return state.paymentsList.reduce((res,cur) => res + cur.value, 0)
-        }
+        }, 
+        
+        getCategoryList: state => state.categoryList,
     }
 })
