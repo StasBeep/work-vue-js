@@ -6,6 +6,9 @@
     <main>
       <AddPayment @addNewPayment="addData" />
       <br>
+      <CategorySelect :categoryList="categoryList" />
+      Total: {{ getFPV }}
+      <br>
       <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
@@ -15,29 +18,41 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
+import CategorySelect from './components/CategorySelect.vue'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   
   components: {
     PaymentsDisplay,
-    AddPayment
+    AddPayment,
+    CategorySelect
   },
 
-  data: () => ({
-    //
-    paymentsList: []
-  }),
-
   methods: {
+    // Для универсальной записи
+    // Список mapActions
+    ...mapActions([
+      'fetchData',
+      'fetchCategory'
+    ]),
+
+    // Список мутаций
+    ...mapMutations([
+        'setPaymentListData',
+        'addDataToPaymentList'
+    ]),
+
     addData(data) {
       console.log(data);
       // this.paymentsList.push(data);
       // Второй метод вывода
-      this.paymentsList = [...this.paymentsList, data];
+      // this.paymentsList = [...this.paymentsList, data];
+      this.addDataToPaymentList(data);
     },
 
-    fetchData() {
+    /*fetchData() {
       return [
         {
           data: "28.03.2020",
@@ -54,15 +69,58 @@ export default {
           category: "Internet",
           value: 200
         },
+        {
+          data: "01.03.2019",
+          category: "Family",
+          value: 2000
+        },
+        {
+          data: "25.07.2020",
+          category: "Sport",
+          value: 500
+        },
       ]
-    }
+    }*/
   },
 
+  computed: {
+    // Список getters
+    ...mapGetters({
+      paymentsList: 'getPaymentList',
+      categoryList: 'getCategoryList'
+    }),
+
+    getFPV() {
+      return this.$store.getters.getFullPaymentValue
+    },
+
+    // Один из вариантов
+    /*paymentsList() {
+      return this.getPaymentList
+    }*/
+  },
+
+  /**
+   * Эмитация загрузки данных
+   */
   // Хук (компонент ещё не смонтирован)
-    created() {
-      // реактивность
-      this.paymentsList = this.fetchData()
+  created() {
+    // реативность с хранилищем
+    // Тяжёлая запись через commit и $store, можно проще
+    // через mapMutations
+    // this.$store.commit('setPaymentListData', this.fetchData())
+
+    // Адаптивная и универсальная запись при помощи spread
+    // this.setPaymentListData(this.fetchData());
+
+    this.fetchData();
+    if(!this.categoryList.length) {
+      this.fetchCategory();
     }
+
+    // реактивность (без хранилища)
+    // this.paymentsList = this.fetchData()
+  }
 }
 </script>
 
