@@ -27,10 +27,6 @@ export default {
     AddPayment
   },
 
-  data: () => ({
-    paymentsList: []
-  }),
-
   methods: {
     // Для универсальной записи
     // Список мутаций
@@ -79,6 +75,10 @@ export default {
   computed: {
     getFPV() {
       return this.$store.getters.getFullPaymentValue
+    },
+
+    paymentsList() {
+      return this.$store.getters.getPaymentList
     }
   },
 
