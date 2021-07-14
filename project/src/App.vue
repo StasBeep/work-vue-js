@@ -17,7 +17,7 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -29,6 +29,11 @@ export default {
 
   methods: {
     // Для универсальной записи
+    // Список mapActions
+    ...mapActions([
+      'fetchData'
+    ]),
+
     // Список мутаций
     ...mapMutations([
         'setPaymentListData',
@@ -43,7 +48,7 @@ export default {
       this.addDataToPaymentList(data);
     },
 
-    fetchData() {
+    /*fetchData() {
       return [
         {
           data: "28.03.2020",
@@ -71,7 +76,7 @@ export default {
           value: 500
         },
       ]
-    }
+    }*/
   },
 
   computed: {
@@ -101,7 +106,9 @@ export default {
     // this.$store.commit('setPaymentListData', this.fetchData())
 
     // Адаптивная и универсальная запись при помощи spread
-    this.setPaymentListData(this.fetchData());
+    // this.setPaymentListData(this.fetchData());
+
+    this.fetchData();
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()

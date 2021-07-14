@@ -31,7 +31,23 @@ export default new Vuex.Store({
     // Запускают mutations
     // Запрос -> получение -> вызов действий mutations
     actions: {
-
+        fetchData({commit}) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const items = [];
+                    for(let i = 1; i < 50; i++){
+                        items.push({
+                            data: "23.12.2020",
+                            category: "Sport",
+                            value: i
+                        })
+                    }
+                    resolve(items)
+                }, 2000)
+            }).then(res => {
+                commit('setPaymentListData', res);
+            })
+        }
     },
 
     // "Выдача" данных
