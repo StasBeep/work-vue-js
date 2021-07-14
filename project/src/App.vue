@@ -17,7 +17,7 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -73,13 +73,19 @@ export default {
   },
 
   computed: {
+    // Список getters
+    ...mapGetters({
+      paymentsList: 'getPaymentList'
+    }),
+    
     getFPV() {
       return this.$store.getters.getFullPaymentValue
     },
 
-    paymentsList() {
-      return this.$store.getters.getPaymentList
-    }
+    // Один из вариантов
+    /*paymentsList() {
+      return this.getPaymentList
+    }*/
   },
 
   /**
