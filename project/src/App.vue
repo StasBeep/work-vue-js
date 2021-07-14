@@ -31,14 +31,16 @@ export default {
     // Для универсальной записи
     // Список мутаций
     ...mapMutations([
-        'setPaymentListData'
+        'setPaymentListData',
+        'addDataToPaymentList'
     ]),
 
     addData(data) {
       console.log(data);
       // this.paymentsList.push(data);
       // Второй метод вывода
-      this.paymentsList = [...this.paymentsList, data];
+      // this.paymentsList = [...this.paymentsList, data];
+      this.addDataToPaymentList(data);
     },
 
     fetchData() {
@@ -77,7 +79,7 @@ export default {
     ...mapGetters({
       paymentsList: 'getPaymentList'
     }),
-    
+
     getFPV() {
       return this.$store.getters.getFullPaymentValue
     },

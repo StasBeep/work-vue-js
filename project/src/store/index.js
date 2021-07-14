@@ -14,6 +14,17 @@ export default new Vuex.Store({
         // Метод добавления/изменения данных
         setPaymentListData(state, payload) {
             state.paymentsList = payload;
+        },
+
+        addDataToPaymentList(state, payload) {
+            state.paymentsList.push(payload);
+        },
+
+        // Метод изменения данных
+        updateItem(state, payload) {
+            state.paymentsList[payload.idx] = payload;
+            state.paymentsList = [...state.paymentsList];
+            // Vue.set(state.paymentsList, 0, payload);
         }
     },
 
