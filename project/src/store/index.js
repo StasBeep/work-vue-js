@@ -24,7 +24,14 @@ export default new Vuex.Store({
     },
 
     // "Выдача" данных
+    // Возвращает значения state или других состояний
+    // Преобразовать данные и вернуть
     getters: {
-
+        // Возвращает сосотояние paymentList
+        getPaymentList: state => state.paymentsList,
+        // Считает все наши затраты
+        getFullPaymentValue: state => {
+            return state.paymentsList.reduce((res,cur) => res + cur.value, 0)
+        }
     }
 })
