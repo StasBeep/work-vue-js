@@ -4,6 +4,7 @@
       <h1>My personal cost</h1>
     </header>
     <main>
+      <!-- Подготовка к выполнению 5 домашки -->
       <AddPayment @addNewPayment="addData" />
       <br>
       <PaymentsDisplay :list="paymentsList"/>
