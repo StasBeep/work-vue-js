@@ -4,6 +4,7 @@
       <h1>My personal cost</h1>
     </header>
     <main>
+      <!-- Подготовка к домашнему заданию 6 -->
       <AddPayment @addNewPayment="addData" />
       <br>
       <PaymentsDisplay :list="paymentsList"/>
