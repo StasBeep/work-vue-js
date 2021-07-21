@@ -157,9 +157,21 @@ export default {
   mounted() {
     // Перед первой загрузкой вывести вот это:
     this.setPage()
-    window.addEventListener('hashchange', () => {
-      this.setPage()
+
+    const links = document.querySelectorAll('a')
+
+    // Нативная реализация
+    links.forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault()
+        history.pushState({}, "", link.href)
+      })
     })
+
+    // Реализация через прослушивание
+    /*window.addEventListener('hashchange', () => {
+      this.setPage()
+    })*/
   }
 }
 </script>
