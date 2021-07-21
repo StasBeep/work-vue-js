@@ -7,7 +7,9 @@
       <!-- Запросы (переходы) -->
       <router-link to='/dashboard'>Dashboard</router-link> /
       <router-link to='/about'>About</router-link> /
-      <router-link to='/notfound'>Not Found</router-link>
+      <router-link to='/notfound'>Not Found</router-link> / 
+      <!-- Второй способ запроса через button -->
+      <button @click='goToThePageNotFound'>Not Found</button>
       <!-- <a href="dashboard">Dashboard</a> /
       <a href="about">About</a> /
       <a href="notfound">Not Found</a> -->
@@ -85,6 +87,12 @@ export default {
 
     setPage() {
       this.page = location.pathname.slice(1)
+    },
+
+    // Проверка
+    goToThePageNotFound() {
+      // Перейди по этому адресу
+      this.$router.push({name: 'NotFound'})
     },
 
     /*fetchData() {
