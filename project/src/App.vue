@@ -4,15 +4,15 @@
       <h1>My personal cost</h1>
     </header>
     <div class="menu">
-      <a href="#dashboard">Dashboard</a> /
-      <a href="#about">About</a> /
-      <a href="#notfound">Not Found</a>
+      <!-- <a href="dashboard">Dashboard</a> /
+      <a href="about">About</a> /
+      <a href="notfound">Not Found</a> -->
     </div>
     <main>
       <div class="content-page">
-        <About v-if="page === 'about'" />
+        <!-- <About v-if="page === 'about'" />
         <Dashboard v-if="page === 'dashboard'" />
-        <NotFound v-if="page === 'notfound'" />
+        <NotFound v-if="page === 'notfound'" /> -->
       </div>
 
       <AddPayment @addNewPayment="addData" />
@@ -31,9 +31,9 @@ import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
 import CategorySelect from './components/CategorySelect.vue'
 
-import About from './views/About.vue'
-import Dashboard from './views/Dashboard.vue'
-import NotFound from './views/NotFound.vue'
+// import About from './views/About.vue'
+// import Dashboard from './views/Dashboard.vue'
+// import NotFound from './views/NotFound.vue'
 
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
@@ -44,9 +44,9 @@ export default {
     PaymentsDisplay,
     AddPayment,
     CategorySelect,
-    About,
-    Dashboard,
-    NotFound
+    // About,
+    // Dashboard,
+    // NotFound
   },
 
   data() {
@@ -78,7 +78,7 @@ export default {
     },
 
     setPage() {
-      this.page = location.hash.slice(1)
+      this.page = location.pathname.slice(1)
     },
 
     /*fetchData() {
@@ -165,8 +165,11 @@ export default {
       link.addEventListener('click', event => {
         event.preventDefault()
         history.pushState({}, "", link.href)
+        this.setPage()
       })
     })
+
+    window.addEventListener('popstate', this.setPage)
 
     // Реализация через прослушивание
     /*window.addEventListener('hashchange', () => {
