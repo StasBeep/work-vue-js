@@ -3,7 +3,18 @@
     <header>
       <h1>My personal cost</h1>
     </header>
+    <div class="menu">
+      <a href="#dashboard">Dashboard</a> /
+      <a href="#about">About</a> /
+      <a href="#notfound">Not Found</a>
+    </div>
     <main>
+      <div class="content-page">
+        <About v-if="page === 'about'" />
+        <Dashboard v-if="page === 'dashboard'" />
+        <NotFound v-if="page === 'notfound'" />
+      </div>
+
       <AddPayment @addNewPayment="addData" />
       <br>
       <CategorySelect :categoryList="categoryList" />
@@ -19,6 +30,11 @@
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
 import CategorySelect from './components/CategorySelect.vue'
+
+import About from './views/About.vue'
+import Dashboard from './views/Dashboard.vue'
+import NotFound from './views/NotFound.vue'
+
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -27,7 +43,16 @@ export default {
   components: {
     PaymentsDisplay,
     AddPayment,
-    CategorySelect
+    CategorySelect,
+    About,
+    Dashboard,
+    NotFound
+  },
+
+  data() {
+    return { 
+      page: ''
+    }
   },
 
   methods: {
@@ -135,6 +160,6 @@ export default {
 }
 
 .wrapper {
-  
+  margin: 0 auto;
 }
 </style>
