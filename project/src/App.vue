@@ -4,12 +4,18 @@
       <h1>My personal cost</h1>
     </header>
     <div class="menu">
+      <!-- Запросы (переходы) -->
+      <router-link to='/dashboard'>Dashboard</router-link> /
+      <router-link to='/about'>About</router-link> /
+      <router-link to='/notfound'>Not Found</router-link>
       <!-- <a href="dashboard">Dashboard</a> /
       <a href="about">About</a> /
       <a href="notfound">Not Found</a> -->
     </div>
     <main>
       <div class="content-page">
+        <!-- Отображение данный router-link -->
+        <router-view />
         <!-- <About v-if="page === 'about'" />
         <Dashboard v-if="page === 'dashboard'" />
         <NotFound v-if="page === 'notfound'" /> -->
