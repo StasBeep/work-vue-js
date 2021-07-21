@@ -77,6 +77,10 @@ export default {
       this.addDataToPaymentList(data);
     },
 
+    setPage() {
+      this.page = location.hash.slice(1)
+    },
+
     /*fetchData() {
       return [
         {
@@ -145,6 +149,17 @@ export default {
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
+  },
+
+  /**
+   * Момент монтирования
+   */
+  mounted() {
+    // Перед первой загрузкой вывести вот это:
+    this.setPage()
+    window.addEventListener('hashchange', () => {
+      this.setPage()
+    })
   }
 }
 </script>
