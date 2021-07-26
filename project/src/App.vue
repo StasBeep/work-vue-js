@@ -22,7 +22,6 @@
         <Dashboard v-if="page === 'dashboard'" />
         <NotFound v-if="page === 'notfound'" /> -->
       </div>
-
       <AddPayment @addNewPayment="addData" />
       <br>
       Total: {{ getFPV }}
