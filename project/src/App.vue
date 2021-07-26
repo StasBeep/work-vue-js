@@ -29,6 +29,7 @@
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="paymentsList"/>
+      <Pagination />
     </main>
   </div>
 </template>
@@ -38,6 +39,9 @@
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
 import CategorySelect from './components/CategorySelect.vue'
+
+// Пагинация
+import Pagination from './components/Pagination.vue'
 
 // import About from './views/About.vue'
 // import Dashboard from './views/Dashboard.vue'
@@ -54,7 +58,8 @@ export default {
     CategorySelect,
     // About,
     // Dashboard,
-    // NotFound
+    // NotFound,
+    Pagination
   },
 
   data() {
