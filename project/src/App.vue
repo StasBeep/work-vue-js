@@ -29,7 +29,7 @@
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="currentElements"/>
-      <Pagination />
+      <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
     </main>
   </div>
 </template>
@@ -100,6 +100,13 @@ export default {
     goToThePageNotFound() {
       // Перейди по этому адресу
       this.$router.push({name: 'NotFound'})
+    },
+
+    /**
+     * Изменение содержимого страницы (от номера страницы)
+     */
+    onChangePage() {
+      
     },
 
     /*fetchData() {

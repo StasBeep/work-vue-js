@@ -20,10 +20,37 @@ export default {
         n: Number,
         // Текущая страница 
         cur: Number
+    },
+    computed: {
+        /**
+         * Рассчёт количство кнопок для переключения
+         */
+        amount() {
+            return Math.ceil(this.length / this.n)
+        }
+    },
+    methods: {
+        /**
+         * Опрокидывание страниц вверх с содержимым
+         */
+        onClick (p) {
+            if(p < 1 || p > this.amount){
+                return
+            }
+            this.$emit('paginate', p)
+        }
     }
 }
 </script>
 
-<style>
-
+<style module lang="scss">
+    .wrp{
+        display: flex;
+        & > div {
+            padding: 10px;
+            &.active {
+                background: #ccc;
+            }
+        }
+    }
 </style>
