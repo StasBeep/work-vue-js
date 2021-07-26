@@ -28,7 +28,7 @@
       <CategorySelect :categoryList="categoryList" />
       Total: {{ getFPV }}
       <br>
-      <PaymentsDisplay :list="paymentsList"/>
+      <PaymentsDisplay :list="currentElements"/>
       <Pagination />
     </main>
   </div>
@@ -64,7 +64,9 @@ export default {
 
   data() {
     return { 
-      page: ''
+      page: '',
+      curPage: 1,
+      n: 10,
     }
   },
 
@@ -141,6 +143,14 @@ export default {
     getFPV() {
       return this.$store.getters.getFullPaymentValue
     },
+
+    /**
+     * Посчитать количество обрезанных страниц (Выделение 10 элементов)
+     */
+    currentElements() {
+      const { n, curPage } = this
+      return this.paymentsList.slice(n * (curPage - 1), n * (curPage - 1) + n)
+    }
 
     // Один из вариантов
     /*paymentsList() {

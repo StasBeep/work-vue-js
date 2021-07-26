@@ -14,7 +14,13 @@
 
 <script>
 export default {
-    
+    props: {
+        length: Number,
+        // Количество элементов
+        n: Number,
+        // Текущая страница 
+        cur: Number
+    }
 }
 </script>
 
