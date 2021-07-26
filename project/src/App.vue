@@ -104,9 +104,10 @@ export default {
 
     /**
      * Изменение содержимого страницы (от номера страницы)
+     * @param {number} номер страницы
      */
-    onChangePage() {
-      
+    onChangePage(p) {
+      this.curPage = p
     },
 
     /*fetchData() {
