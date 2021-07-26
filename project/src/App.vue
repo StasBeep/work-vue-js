@@ -3,11 +3,32 @@
     <header>
       <h1>My personal cost</h1>
     </header>
+    <div class="menu">
+      <!-- Запросы (переходы) -->
+      <router-link to='/dashboard'>Dashboard</router-link> /
+      <router-link to='/about'>About</router-link> /
+      <router-link to='/notfound'>Not Found</router-link> / 
+      <!-- Второй способ запроса через button -->
+      <button @click='goToThePageNotFound'>Not Found</button>
+      <!-- <a href="dashboard">Dashboard</a> /
+      <a href="about">About</a> /
+      <a href="notfound">Not Found</a> -->
+    </div>
     <main>
-      <!-- Подготовка к выполнению 5 домашки -->
+      <div class="content-page">
+        <!-- Отображение данный router-link -->
+        <router-view />
+        <!-- <About v-if="page === 'about'" />
+        <Dashboard v-if="page === 'dashboard'" />
+        <NotFound v-if="page === 'notfound'" /> -->
+      </div>
       <AddPayment @addNewPayment="addData" />
       <br>
-      <PaymentsDisplay :list="paymentsList"/>
+      <CategorySelect :categoryList="categoryList" />
+      Total: {{ getFPV }}
+      <br>
+      <PaymentsDisplay :list="currentElements"/>
+      <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
     </main>
   </div>
 </template>
@@ -16,28 +37,79 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
+import CategorySelect from './components/CategorySelect.vue'
+
+// Пагинация
+import Pagination from './components/Pagination.vue'
+
+// import About from './views/About.vue'
+// import Dashboard from './views/Dashboard.vue'
+// import NotFound from './views/NotFound.vue'
+
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   
   components: {
     PaymentsDisplay,
-    AddPayment
+    AddPayment,
+    CategorySelect,
+    // About,
+    // Dashboard,
+    // NotFound,
+    Pagination
   },
 
-  data: () => ({
-    paymentsList: []
-  }),
+  data() {
+    return { 
+      page: '',
+      curPage: 1,
+      n: 10,
+    }
+  },
 
   methods: {
+    // Для универсальной записи
+    // Список mapActions
+    ...mapActions([
+      'fetchData',
+      'fetchCategory'
+    ]),
+
+    // Список мутаций
+    ...mapMutations([
+        'setPaymentListData',
+        'addDataToPaymentList'
+    ]),
+
     addData(data) {
       console.log(data);
       // this.paymentsList.push(data);
       // Второй метод вывода
-      this.paymentsList = [...this.paymentsList, data];
+      // this.paymentsList = [...this.paymentsList, data];
+      this.addDataToPaymentList(data);
     },
 
-    fetchData() {
+    setPage() {
+      this.page = location.pathname.slice(1)
+    },
+
+    // Проверка
+    goToThePageNotFound() {
+      // Перейди по этому адресу
+      this.$router.push({name: 'NotFound'})
+    },
+
+    /**
+     * Изменение содержимого страницы (от номера страницы)
+     * @param {number} номер страницы
+     */
+    onChangePage(p) {
+      this.curPage = p
+    },
+
+    /*fetchData() {
       return [
         {
           data: "28.03.2020",
@@ -54,15 +126,95 @@ export default {
           category: "Internet",
           value: 200
         },
+        {
+          data: "01.03.2019",
+          category: "Family",
+          value: 2000
+        },
+        {
+          data: "25.07.2020",
+          category: "Sport",
+          value: 500
+        },
       ]
-    }
+    }*/
   },
 
-  // Хук (компонент ещё не смонтирован)
-    created() {
-      // реактивность
-      this.paymentsList = this.fetchData()
+  computed: {
+    // Список getters
+    ...mapGetters({
+      paymentsList: 'getPaymentList',
+      categoryList: 'getCategoryList'
+    }),
+
+    getFPV() {
+      return this.$store.getters.getFullPaymentValue
+    },
+
+    /**
+     * Посчитать количество обрезанных страниц (Выделение 10 элементов)
+     */
+    currentElements() {
+      const { n, curPage } = this
+      return this.paymentsList.slice(n * (curPage - 1), n * (curPage - 1) + n)
     }
+
+    // Один из вариантов
+    /*paymentsList() {
+      return this.getPaymentList
+    }*/
+  },
+
+  /**
+   * Эмитация загрузки данных
+   */
+  // Хук (компонент ещё не смонтирован)
+  created() {
+    // реативность с хранилищем
+    // Тяжёлая запись через commit и $store, можно проще
+    // через mapMutations
+    // this.$store.commit('setPaymentListData', this.fetchData())
+
+    // Адаптивная и универсальная запись при помощи spread
+    // this.setPaymentListData(this.fetchData());
+
+    this.fetchData();
+    if(!this.categoryList.length) {
+      this.fetchCategory();
+    }
+
+    // реактивность (без хранилища)
+    // this.paymentsList = this.fetchData()
+  },
+
+  /**
+   * Момент монтирования
+   */
+  mounted() {
+    const page = this.$route.params.page || 1
+    this.curPage = page
+
+    // Перед первой загрузкой вывести вот это:
+    // this.setPage()
+
+    // const links = document.querySelectorAll('a')
+
+    // Нативная реализация
+    // links.forEach(link => {
+      // link.addEventListener('click', event => {
+        // event.preventDefault()
+        // history.pushState({}, "", link.href)
+        // this.setPage()
+      // })
+    //})
+
+    // window.addEventListener('popstate', this.setPage)
+
+    // Реализация через прослушивание
+    /*window.addEventListener('hashchange', () => {
+      this.setPage()
+    })*/
+  }
 }
 </script>
 
@@ -77,6 +229,6 @@ export default {
 }
 
 .wrapper {
-  
+  margin: 0 auto;
 }
 </style>
