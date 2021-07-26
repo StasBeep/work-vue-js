@@ -25,7 +25,6 @@
 
       <AddPayment @addNewPayment="addData" />
       <br>
-      <CategorySelect :categoryList="categoryList" />
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="currentElements"/>
@@ -38,7 +37,6 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
-import CategorySelect from './components/CategorySelect.vue'
 
 // Пагинация
 import Pagination from './components/Pagination.vue'
@@ -55,7 +53,6 @@ export default {
   components: {
     PaymentsDisplay,
     AddPayment,
-    CategorySelect,
     // About,
     // Dashboard,
     // NotFound,
@@ -109,36 +106,6 @@ export default {
     onChangePage(p) {
       this.curPage = p
     },
-
-    /*fetchData() {
-      return [
-        {
-          data: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          data: "20.04.2021",
-          category: "Sport",
-          value: 400
-        },
-        {
-          data: "20.05.2021",
-          category: "Internet",
-          value: 200
-        },
-        {
-          data: "01.03.2019",
-          category: "Family",
-          value: 2000
-        },
-        {
-          data: "25.07.2020",
-          category: "Sport",
-          value: 500
-        },
-      ]
-    }*/
   },
 
   computed: {
@@ -187,7 +154,7 @@ export default {
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
   },
-
+  
   /**
    * Момент монтирования
    */
