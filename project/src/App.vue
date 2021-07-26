@@ -9,7 +9,8 @@
       <CategorySelect :categoryList="categoryList" />
       Total: {{ getFPV }}
       <br>
-      <PaymentsDisplay :list="paymentsList"/>
+      <PaymentsDisplay :list="currentElements"/>
+      <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
     </main>
   </div>
 </template>
@@ -19,6 +20,10 @@
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
 import CategorySelect from './components/CategorySelect.vue'
+
+// Пагинация
+import Pagination from './components/Pagination.vue'
+
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -27,7 +32,16 @@ export default {
   components: {
     PaymentsDisplay,
     AddPayment,
-    CategorySelect
+    CategorySelect,
+    Pagination
+  },
+
+  data() {
+    return { 
+      page: '',
+      curPage: 1,
+      n: 10,
+    }
   },
 
   methods: {
@@ -50,6 +64,14 @@ export default {
       // Второй метод вывода
       // this.paymentsList = [...this.paymentsList, data];
       this.addDataToPaymentList(data);
+    },
+
+    /**
+     * Изменение содержимого страницы (от номера страницы)
+     * @param {number} номер страницы
+     */
+    onChangePage(p) {
+      this.curPage = p
     },
 
     /*fetchData() {
@@ -94,6 +116,14 @@ export default {
       return this.$store.getters.getFullPaymentValue
     },
 
+    /**
+     * Посчитать количество обрезанных страниц (Выделение 10 элементов)
+     */
+    currentElements() {
+      const { n, curPage } = this
+      return this.paymentsList.slice(n * (curPage - 1), n * (curPage - 1) + n)
+    }
+
     // Один из вариантов
     /*paymentsList() {
       return this.getPaymentList
@@ -120,7 +150,7 @@ export default {
 
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
-  }
+  },
 }
 </script>
 
@@ -135,6 +165,6 @@ export default {
 }
 
 .wrapper {
-  
+  margin: 0 auto;
 }
 </style>
