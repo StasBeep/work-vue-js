@@ -3,7 +3,9 @@
         <button class="btn-hide" v-show="show" @click="show = !show">add new cost +</button>
         <div v-show="!show">
             <input v-model="date" class="enter-input" placeholder="date">
-            <input v-model="category" class="enter-input" placeholder="category">
+            <CategorySelect
+                @select="onSelect"
+                :categoryList="categoryList" />
             <input v-model.number="value" class="enter-input" type="number" placeholder="value">
             <button @click="onClick" class="btn-add">Add Data</button>
             <button class="btn-hide" @click="show = !show">hide -</button>
@@ -12,8 +14,17 @@
 </template>
 
 <script>
+
+import CategorySelect from './CategorySelect.vue'
+
+import { mapGetters } from 'vuex'
+
 export default {
     name: "AddPayment",
+
+    components: {
+        CategorySelect,
+    },
 
     data: () => ({
         date: "",
@@ -23,6 +34,10 @@ export default {
     }),
 
     methods: {
+        onSelect(el) {
+            this.category = el
+        },
+
         onClick() {
             const { category, value } = this
             const data = {
@@ -38,14 +53,19 @@ export default {
     },
 
     computed: {
+        // Список getters
+        ...mapGetters({
+            categoryList: 'getCategoryList'
+        }),
+        
         getCurrentDate() {
             const today = new Date();
             const d = today.getDate();
             const m = today.getMonth() + 1;
             const y = today.getFullYear();
             return `${d}.${m}.${y}`;
-        }
-    }
+        },
+    },
 }
 </script>
 

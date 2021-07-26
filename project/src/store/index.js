@@ -7,7 +7,59 @@ export default new Vuex.Store({
     // Начальная точка отсчёта (состояние)
     state: {
         paymentsList: [],
-        categoryList: []
+        categoryList: [],
+        defaultFetchData: [
+            {
+                data: "28.03.2020",
+                category: "Food",
+                value: 169
+            },
+            {
+                data: "20.04.2021",
+                category: "Sport",
+                value: 400
+            },
+            {
+                data: "20.05.2021",
+                category: "Education",
+                value: 200
+            },
+            {
+                data: "01.03.2019",
+                category: "Family",
+                value: 2000
+            },
+            {
+                data: "25.07.2020",
+                category: "Sport",
+                value: 500
+            },
+            {
+                data: "05.11.2020",
+                category: "Food",
+                value: 1140
+            },
+            {
+                data: "17.01.2019",
+                category: "Sport",
+                value: 700
+            },
+            {
+                data: "30.07.2021",
+                category: "Education",
+                value: 120
+            },
+            {
+                data: "12.09.2015",
+                category: "Family",
+                value: 2000
+            },
+            {
+                data: "08.10.2021",
+                category: "Auto",
+                value: 500
+            },
+        ]
     },
 
     // Изменение данных
@@ -40,12 +92,24 @@ export default new Vuex.Store({
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const items = [];
-                    for(let i = 1; i < 50; i++){
-                        items.push({
-                            data: "23.12.2020",
-                            category: "Sport",
-                            value: i
-                        })
+                    let n = Number(this.state.defaultFetchData.length);
+                    console.log(n)
+                    console.log(this.state.defaultFetchData[0])
+                    for(let i = 0; i < 50 ; i++){
+                        if(n !== 0) {
+                            items.push({
+                                data: this.state.defaultFetchData[i].data,
+                                category: this.state.defaultFetchData[i].category,
+                                value: this.state.defaultFetchData[i].value
+                            });
+                            n--;
+                        }else {
+                            items.push({
+                                data: "23.12.2020",
+                                category: "Sport",
+                                value: i
+                            })
+                        }
                     }
                     resolve(items)
                 }, 2000)
