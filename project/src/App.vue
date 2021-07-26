@@ -2,6 +2,7 @@
   <div id="app" :class="[$style.wrapper]">
     <header>
       <h1>My personal cost</h1>
+      <!-- Подготовка к выполнению 8 домашнего задания -->
     </header>
     <div class="menu">
       <!-- Запросы (переходы) -->
