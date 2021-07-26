@@ -21,6 +21,14 @@ export default new Router({
         },
         { 
             // Путь
+            path: '/dashboard/:page',
+            // Компонент реализации
+            component: Dashboard,
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'dashboard'
+        },
+        { 
+            // Путь
             path: '/about',
             // Компонент реализации
             component: About,

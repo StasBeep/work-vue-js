@@ -192,21 +192,24 @@ export default {
    * Момент монтирования
    */
   mounted() {
-    // Перед первой загрузкой вывести вот это:
-    this.setPage()
+    const page = this.$route.params.page || 1
+    this.curPage = page
 
-    const links = document.querySelectorAll('a')
+    // Перед первой загрузкой вывести вот это:
+    // this.setPage()
+
+    // const links = document.querySelectorAll('a')
 
     // Нативная реализация
-    links.forEach(link => {
-      link.addEventListener('click', event => {
-        event.preventDefault()
-        history.pushState({}, "", link.href)
-        this.setPage()
-      })
-    })
+    // links.forEach(link => {
+      // link.addEventListener('click', event => {
+        // event.preventDefault()
+        // history.pushState({}, "", link.href)
+        // this.setPage()
+      // })
+    //})
 
-    window.addEventListener('popstate', this.setPage)
+    // window.addEventListener('popstate', this.setPage)
 
     // Реализация через прослушивание
     /*window.addEventListener('hashchange', () => {
