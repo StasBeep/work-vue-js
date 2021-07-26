@@ -34,7 +34,7 @@ export default {
          * Опрокидывание страниц вверх с содержимым
          */
         onClick (p) {
-            if(p < 1 || p > this.amount){
+            if(p < 1 || p > this.amount || p === this.cur){
                 return
             }
             this.$emit('paginate', p)
