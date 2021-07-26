@@ -3,7 +3,26 @@
     <header>
       <h1>My personal cost</h1>
     </header>
+    <div class="menu">
+      <!-- Запросы (переходы) -->
+      <router-link to='/dashboard'>Dashboard</router-link> /
+      <router-link to='/about'>About</router-link> /
+      <router-link to='/notfound'>Not Found</router-link> / 
+      <!-- Второй способ запроса через button -->
+      <button @click='goToThePageNotFound'>Not Found</button>
+      <!-- <a href="dashboard">Dashboard</a> /
+      <a href="about">About</a> /
+      <a href="notfound">Not Found</a> -->
+    </div>
     <main>
+      <div class="content-page">
+        <!-- Отображение данный router-link -->
+        <router-view />
+        <!-- <About v-if="page === 'about'" />
+        <Dashboard v-if="page === 'dashboard'" />
+        <NotFound v-if="page === 'notfound'" /> -->
+      </div>
+
       <AddPayment @addNewPayment="addData" />
       <br>
       Total: {{ getFPV }}
@@ -22,6 +41,10 @@ import AddPayment from './components/AddPayment.vue'
 // Пагинация
 import Pagination from './components/Pagination.vue'
 
+// import About from './views/About.vue'
+// import Dashboard from './views/Dashboard.vue'
+// import NotFound from './views/NotFound.vue'
+
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -30,6 +53,9 @@ export default {
   components: {
     PaymentsDisplay,
     AddPayment,
+    // About,
+    // Dashboard,
+    // NotFound,
     Pagination
   },
 
@@ -61,6 +87,16 @@ export default {
       // Второй метод вывода
       // this.paymentsList = [...this.paymentsList, data];
       this.addDataToPaymentList(data);
+    },
+
+    setPage() {
+      this.page = location.pathname.slice(1)
+    },
+
+    // Проверка
+    goToThePageNotFound() {
+      // Перейди по этому адресу
+      this.$router.push({name: 'NotFound'})
     },
 
     /**
@@ -118,6 +154,35 @@ export default {
     // реактивность (без хранилища)
     // this.paymentsList = this.fetchData()
   },
+  
+  /**
+   * Момент монтирования
+   */
+  mounted() {
+    const page = this.$route.params.page || 1
+    this.curPage = page
+
+    // Перед первой загрузкой вывести вот это:
+    // this.setPage()
+
+    // const links = document.querySelectorAll('a')
+
+    // Нативная реализация
+    // links.forEach(link => {
+      // link.addEventListener('click', event => {
+        // event.preventDefault()
+        // history.pushState({}, "", link.href)
+        // this.setPage()
+      // })
+    //})
+
+    // window.addEventListener('popstate', this.setPage)
+
+    // Реализация через прослушивание
+    /*window.addEventListener('hashchange', () => {
+      this.setPage()
+    })*/
+  }
 }
 </script>
 
