@@ -7,7 +7,7 @@ import NotFound from '../views/NotFound.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     // Убирает #
     mode: 'history',
     routes: [
@@ -61,3 +61,35 @@ export default new Router({
         }
     ]
 })
+
+// Имитация авторизации
+// Если пользователь авторизован, доступ есть
+// Если пользователь не авторизован, то доступ закрыт
+// const isAuth = false
+
+/* router.beforeEach((to, from, next) => {
+    if(!isAuth) {
+        next({name: 'NotFound'})
+    }else {
+        next()
+    }
+})*/
+
+/*router.beforeResolve((to, from, next) => {
+
+})*/
+
+// Изменение динамически title вкладки
+const getTitle = routName => {
+    return {
+        'dashboard': 'Take a look on your payments and add more!',
+        'about': 'Anything about our awesome application!',
+        'NotFound': 'Oops! Seems like we lost this page :('
+    }[routName]
+}
+
+router.afterEach((to) => {
+    document.title = getTitle(to.name)
+})
+
+export default router
