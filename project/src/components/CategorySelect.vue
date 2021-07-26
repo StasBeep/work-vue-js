@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <select v-model="selected">
-            <option v-for="(option, idx) in categoryList" :key="idx">
-                {{ option }}
-            </option>
-        </select>
-    </div>
+    <select v-model="selected" class="selected">
+        <option v-for="(option, idx) in categoryList" :key="idx">
+            {{ option }}
+        </option>
+    </select>
 </template>
 
 <script>
@@ -27,6 +25,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .selected {
+        padding: 5px 50px;
+    }
 </style>

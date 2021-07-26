@@ -6,7 +6,6 @@
     <main>
       <AddPayment @addNewPayment="addData" />
       <br>
-      <CategorySelect :categoryList="categoryList" />
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="currentElements"/>
@@ -19,7 +18,6 @@
 
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPayment from './components/AddPayment.vue'
-import CategorySelect from './components/CategorySelect.vue'
 
 // Пагинация
 import Pagination from './components/Pagination.vue'
@@ -32,7 +30,6 @@ export default {
   components: {
     PaymentsDisplay,
     AddPayment,
-    CategorySelect,
     Pagination
   },
 
