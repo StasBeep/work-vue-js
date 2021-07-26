@@ -3,7 +3,8 @@
         <button class="btn-hide" v-show="show" @click="show = !show">add new cost +</button>
         <div v-show="!show">
             <input v-model="date" class="enter-input" placeholder="date">
-            <CategorySelect 
+            <CategorySelect
+                @select="onSelect"
                 :categoryList="categoryList" />
             <input v-model.number="value" class="enter-input" type="number" placeholder="value">
             <button @click="onClick" class="btn-add">Add Data</button>
@@ -33,6 +34,9 @@ export default {
     }),
 
     methods: {
+        onSelect(el) {
+            this.category = el
+        },
 
         onClick() {
             const { category, value } = this
@@ -60,7 +64,7 @@ export default {
             const m = today.getMonth() + 1;
             const y = today.getFullYear();
             return `${d}.${m}.${y}`;
-        }
+        },
     },
 }
 </script>

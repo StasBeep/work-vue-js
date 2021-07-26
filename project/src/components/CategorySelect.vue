@@ -1,5 +1,5 @@
 <template>
-    <select v-model="selected" class="selected">
+    <select v-model="selected" class="selected" @click="onSelect">
         <option v-for="(option, idx) in categoryList" :key="idx">
             {{ option }}
         </option>
@@ -20,6 +20,13 @@ export default {
     data() {
         return { 
             selected: ''
+        }
+    },
+
+    methods: {
+        onSelect() {
+            const category = this.selected
+            this.$emit('select', category)
         }
     }
 }
