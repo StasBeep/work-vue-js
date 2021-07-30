@@ -3,6 +3,7 @@
     <header>
       <h1>My personal cost</h1>
     </header>
+    <!-- Подготовка к выполнению домашнего задания 9 -->
     <main>
       <AddPayment @addNewPayment="addData" />
       <br>
