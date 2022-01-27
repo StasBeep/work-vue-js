@@ -8,7 +8,7 @@ import NotFound from '../views/NotFound.vue'
 Vue.use(Router)
 
 const router = new Router({
-    // Убирает #
+    // Убирает # (Настраивает история запросов)
     mode: 'history',
     routes: [
         { 
@@ -20,7 +20,9 @@ const router = new Router({
             name: 'dashboard'
         },
         { 
-            // Путь
+            // Не простой путь, а с параметром (:page - это произвольный параметр, который
+            // может быть заменён), в данном случае он используется в App.vue, и определяет
+            // номер страницы поиска
             path: '/dashboard/:page',
             // Компонент реализации
             component: Dashboard,
