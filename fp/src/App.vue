@@ -1,44 +1,69 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Calc />
-
-    <ButtonClick v-if="!show"/>
-    <ButtonClick v-if="show"/>
-
-    <ButtonHover></ButtonHover>
-
-    <button @click="show = !show">Change</button>
-
-    <HelloWorld msg="Welcome to Your Vue.js App" :myArr= "arr"/>
-    Text : {{ message }} длина {{ message.length }}
+  <div id="app" :class="[$style.wrapper]">
+    <header>
+      <h1>My personal cost</h1>
+    </header>
+    <main>
+      <AddPayment @addNewPayment="addData" />
+      <br />
+      <PaymentsDisplay :list="PaymentList"/>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Calc from './components/Calc.vue'
-import ButtonClick from './components/Button.vue'
-import ButtonHover from './components/ButtonHover.vue'
+import PaymentsDisplay from "./components/PaymentsDisplay.vue"
+import AddPayment from "./components/AddPayment.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    Calc,
-    ButtonClick,
-    ButtonHover
+    PaymentsDisplay,
+    AddPayment
   },
 
   data: () => ({
-    show: false,
-    message: "Ваша реклама",
-    arr: [1,2,3,4,5]
-  })
+    PaymentList: [],
+  }),
+
+  methods: {
+    addData(data){
+      this.PaymentList.push(data);
+    },
+
+    fetchData() {
+      return [
+        {
+          data: "28.03.2020",
+          category: "Food",
+          value: 169
+        },
+        {
+          data: "28.03.2020",
+          category: "Sport",
+          value: 2000
+        },
+        {
+          data: "28.03.2020",
+          category: "Internet",
+          value: 900
+        },
+        {
+          data: "28.03.2020",
+          category: "Car",
+          value: 5600
+        },
+      ]
+    }
+  },
+
+  created() {
+    this.PaymentList = this.fetchData();
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
