@@ -6,7 +6,8 @@
     <main>
       <AddPayment @addNewPayment="addData" />
       <br />
-      <PaymentsDisplay :list="PaymentList"/>
+      Total: {{ getFPV }}
+      <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
 </template>
@@ -15,6 +16,8 @@
 import PaymentsDisplay from "./components/PaymentsDisplay.vue"
 import AddPayment from "./components/AddPayment.vue"
 
+import { mapMutations, mapGetters, mapActions } from "vuex"
+
 export default {
   name: 'App',
   components: {
@@ -22,43 +25,40 @@ export default {
     AddPayment
   },
 
-  data: () => ({
-    PaymentList: [],
-  }),
-
   methods: {
+    ...mapMutations([
+      'setPaymentListData',
+      'addDataToPaymentsList'
+    ]),
+
+    ...mapActions([
+      'fetchData'
+    ]),
+
     addData(data){
-      this.PaymentList.push(data);
+      this.addDataToPaymentsList(data);
+    },
+  },
+
+  computed: {
+    ...mapGetters([
+      'getPaymentList',
+      'getFullPaymentValue'
+    ]),
+
+    getFPV() {
+      return this.getFullPaymentValue
     },
 
-    fetchData() {
-      return [
-        {
-          data: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          data: "28.03.2020",
-          category: "Sport",
-          value: 2000
-        },
-        {
-          data: "28.03.2020",
-          category: "Internet",
-          value: 900
-        },
-        {
-          data: "28.03.2020",
-          category: "Car",
-          value: 5600
-        },
-      ]
+    paymentsList() {
+      return this.getPaymentList
     }
   },
 
   created() {
-    this.PaymentList = this.fetchData();
+    // this.setPaymentListData(this.fetchData());
+    // this.PaymentList = this.fetchData();
+    this.fetchData();
   }
 }
 </script>
