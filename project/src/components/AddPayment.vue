@@ -47,8 +47,17 @@ export default {
             }
             // console.log(data);
             // Вызов события, название события и аргументы
+            
+            if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+                this.$store.commit('addDataToPaymentList', data)
+                this.goToPageDashboard()
+            }
 
             this.$emit('addNewPayment', data);
+        },
+
+        goToPageDashboard() {
+            this.$router.push({name: 'dashboard'})
         },
     },
 
@@ -65,7 +74,35 @@ export default {
             const y = today.getFullYear();
             return `${d}.${m}.${y}`;
         },
+
+        // Момент запроса есть ли value, если нет, то вернуть null
+        getValueStatusRoute() {
+            console.log(this.$route.query?.value)
+            return Number(this.$route.query?.value) ?? null
+        },
+
+        getParamsCategoryStatusRoute() {
+            console.log(this.$route)
+            return this.$route.params?.category ?? null
+        }
     },
+
+    // Компонент ещё не смонтирован
+    created() {
+        if(!this.getValueStatusRoute && !this.getParamsCategoryStatusRoute) {
+            this.goToPageDashboard()
+        }
+        this.category = this.getParamsCategoryStatusRoute
+        this.value = this.getValueStatusRoute
+    },
+
+    // Момент монтирования
+    mounted() {
+        // открытие дабавочного элемента
+        if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+            this.show = false
+        }
+    }
 }
 </script>
 

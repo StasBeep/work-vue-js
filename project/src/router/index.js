@@ -5,6 +5,8 @@ import Dashboard from '../views/Dashboard.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
 
+import AddPayment from '../components/AddPayment.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -46,6 +48,14 @@ const router = new Router({
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
         },
+        { 
+            // Путь
+            path: '/add/payment/:category',
+            // Компонент реализации
+            component: AddPayment,
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'addPayment'
+        },
         /*{ 
             // Путь
             path: '/notfound',
@@ -86,6 +96,7 @@ const getTitle = routName => {
     return {
         'dashboard': 'Take a look on your payments and add more!',
         'about': 'Anything about our awesome application!',
+        'addPayment': 'adding elements',
         'NotFound': 'Oops! Seems like we lost this page :('
     }[routName]
 }

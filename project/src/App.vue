@@ -7,6 +7,9 @@
       <!-- Запросы (переходы) -->
       <router-link to='/dashboard'>Dashboard</router-link> /
       <router-link to='/about'>About</router-link> /
+      <router-link to='/add/payment/Food?value=200&second=200'>Add (Food)</router-link> /
+      <router-link to='/add/payment/Transport?value=50'>Add (Transport)</router-link> /
+      <router-link to='/add/payment/Entertainment?value=2000'>Add (Entertainment)</router-link> /
       <router-link to='/notfound'>Not Found</router-link> / 
       <!-- Второй способ запроса через button -->
       <button @click='goToThePageNotFound'>Not Found</button>
@@ -22,6 +25,7 @@
         <Dashboard v-if="page === 'dashboard'" />
         <NotFound v-if="page === 'notfound'" /> -->
       </div>
+      <br>
       <AddPayment @addNewPayment="addData" />
       <br>
       Total: {{ getFPV }}
