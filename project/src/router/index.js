@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
+import AddPayment from '../components/AddPayment.vue'
 
 Vue.use(Router)
 
@@ -26,6 +27,14 @@ const router = new Router({
             component: Dashboard,
             // Имя роута (может понадобится в дальнейшем)
             name: 'dashboard'
+        },
+        {
+            // Путь
+            path: '/add/payment/:category',
+            // Компонент реализации
+            component: AddPayment,
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'addPayment'
         },
         { 
             // Путь
@@ -65,10 +74,11 @@ const router = new Router({
 // Имитация авторизации
 // Если пользователь авторизован, доступ есть
 // Если пользователь не авторизован, то доступ закрыт
-// const isAuth = false
+// Сосотояние до загрузки страницы (доступ)
+/*const isAuth = false
 
-/* router.beforeEach((to, from, next) => {
-    if(!isAuth) {
+router.beforeEach((to, from, next) => {
+    if(to.name !== 'NotFound' && !isAuth) {
         next({name: 'NotFound'})
     }else {
         next()

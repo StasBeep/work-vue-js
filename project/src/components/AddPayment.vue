@@ -34,6 +34,12 @@ export default {
     }),
 
     methods: {
+        goToPageDashboard() {
+            this.$router.push({
+                name: 'dashboard'
+            })
+        },
+
         onSelect(el) {
             this.category = el
         },
@@ -48,6 +54,11 @@ export default {
             // console.log(data);
             // Вызов события, название события и аргументы
 
+            if(this.getValueQueryFromRoute && this.getCategoryParamsFromRoute) {
+                this.$store.commit('addDataToPaymentList', data)
+                this.goToPageDashboard()
+            }
+            
             this.$emit('addNewPayment', data);
         },
     },
@@ -65,11 +76,33 @@ export default {
             const y = today.getFullYear();
             return `${d}.${m}.${y}`;
         },
+
+        getValueQueryFromRoute() {
+            return Number(this.$route.query?.value) ?? null
+        },
+
+        getCategoryParamsFromRoute() {
+            return this.$route.params?.category ?? null
+        }
     },
+
+    created() {
+        if(!this.getValueQueryFromRoute || !this.getCategoryParamsFromRoute) {
+            this.goToPageDashboard()
+        }
+        this.category = this.getCategoryParamsFromRoute
+        this.value = this.getValueQueryFromRoute
+    },
+
+    mounted() {
+        if(this.getValueQueryFromRoute || this.getCategoryParamsFromRoute) {
+            this.show = false
+        }
+    }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .btn-hide {
         padding: 8px 20px;
         text-transform: uppercase;
@@ -78,11 +111,11 @@ export default {
         cursor: pointer;
         color: white;
         transition: 1s ease;
-    }
 
-    .btn-hide:hover {
-        color: black;
-        transform: scale(1.1);
+        &:hover {
+            color: black;
+            transform: scale(1.1);
+        }
     }
 
     .btn-add {
@@ -92,11 +125,11 @@ export default {
         cursor: pointer;
         color: white;
         transition: 1s ease;
-    }
 
-    .btn-add:hover {
-        color: black;
-        transform: scale(1.1);
+        &:hover {
+            color: black;
+            transform: scale(1.1);
+        }
     }
 
     .enter-input {
