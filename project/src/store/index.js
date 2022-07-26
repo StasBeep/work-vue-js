@@ -93,8 +93,8 @@ export default new Vuex.Store({
                 setTimeout(() => {
                     const items = [];
                     let n = Number(this.state.defaultFetchData.length);
-                    console.log(n)
-                    console.log(this.state.defaultFetchData[0])
+                    // console.log(n)
+                    // console.log(this.state.defaultFetchData[0])
                     for(let i = 0; i < 50 ; i++){
                         if(n !== 0) {
                             items.push({
