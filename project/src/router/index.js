@@ -6,10 +6,12 @@ import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
 import AddPayment from '../components/AddPayment.vue'
 
+import AddPayment from '../components/AddPayment.vue'
+
 Vue.use(Router)
 
 const router = new Router({
-    // Убирает #
+    // Убирает # (Настраивает история запросов)
     mode: 'history',
     routes: [
         { 
@@ -21,7 +23,9 @@ const router = new Router({
             name: 'dashboard'
         },
         { 
-            // Путь
+            // Не простой путь, а с параметром (:page - это произвольный параметр, который
+            // может быть заменён), в данном случае он используется в App.vue, и определяет
+            // номер страницы поиска
             path: '/dashboard/:page',
             // Компонент реализации
             component: Dashboard,
@@ -52,6 +56,14 @@ const router = new Router({
             component: About,
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
+        },
+        { 
+            // Путь
+            path: '/add/payment/:category',
+            // Компонент реализации
+            component: AddPayment,
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'addPayment'
         },
         /*{ 
             // Путь
@@ -94,6 +106,7 @@ const getTitle = routName => {
     return {
         'dashboard': 'Take a look on your payments and add more!',
         'about': 'Anything about our awesome application!',
+        'addPayment': 'adding elements',
         'NotFound': 'Oops! Seems like we lost this page :('
     }[routName]
 }

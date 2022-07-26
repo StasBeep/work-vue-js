@@ -53,6 +53,11 @@ export default {
             }
             // console.log(data);
             // Вызов события, название события и аргументы
+            
+            if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+                this.$store.commit('addDataToPaymentList', data)
+                this.goToPageDashboard()
+            }
 
             if(this.getValueQueryFromRoute && this.getCategoryParamsFromRoute) {
                 this.$store.commit('addDataToPaymentList', data)
@@ -60,6 +65,10 @@ export default {
             }
             
             this.$emit('addNewPayment', data);
+        },
+
+        goToPageDashboard() {
+            this.$router.push({name: 'dashboard'})
         },
     },
 
@@ -77,21 +86,33 @@ export default {
             return `${d}.${m}.${y}`;
         },
 
-        getValueQueryFromRoute() {
+        // Момент запроса есть ли value, если нет, то вернуть null
+        getValueStatusRoute() {
+            // console.log(this.$route.query?.value)
             return Number(this.$route.query?.value) ?? null
         },
 
-        getCategoryParamsFromRoute() {
+        getParamsCategoryStatusRoute() {
+            // console.log(this.$route)
             return this.$route.params?.category ?? null
         }
     },
 
+    // Компонент ещё не смонтирован
     created() {
-        if(!this.getValueQueryFromRoute || !this.getCategoryParamsFromRoute) {
+        if(!this.getValueStatusRoute && !this.getParamsCategoryStatusRoute) {
             this.goToPageDashboard()
         }
-        this.category = this.getCategoryParamsFromRoute
-        this.value = this.getValueQueryFromRoute
+        this.category = this.getParamsCategoryStatusRoute
+        this.value = this.getValueStatusRoute
+    },
+
+    // Момент монтирования
+    mounted() {
+        // открытие дабавочного элемента
+        if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+          this.show = false
+        }
     },
 
     mounted() {
