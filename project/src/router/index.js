@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
-import AddPayment from '../components/AddPayment.vue'
 
 import AddPayment from '../components/AddPayment.vue'
 

@@ -58,17 +58,8 @@ export default {
                 this.$store.commit('addDataToPaymentList', data)
                 this.goToPageDashboard()
             }
-
-            if(this.getValueQueryFromRoute && this.getCategoryParamsFromRoute) {
-                this.$store.commit('addDataToPaymentList', data)
-                this.goToPageDashboard()
-            }
             
             this.$emit('addNewPayment', data);
-        },
-
-        goToPageDashboard() {
-            this.$router.push({name: 'dashboard'})
         },
     },
 
@@ -111,15 +102,9 @@ export default {
     mounted() {
         // открытие дабавочного элемента
         if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
-          this.show = false
-        }
-    },
-
-    mounted() {
-        if(this.getValueQueryFromRoute || this.getCategoryParamsFromRoute) {
             this.show = false
         }
-    }
+    },
 }
 </script>
 
