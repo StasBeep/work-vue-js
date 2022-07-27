@@ -32,6 +32,10 @@
       <br>
       <PaymentsDisplay :list="currentElements"/>
       <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
+      <br>
+      <modalWindowAddPaymentForm @close="onClose" v-if="modalSettings.name" :settings="modalSettings" />
+      <button @click="showPaymentsForm">Show Payments Form</button>
+      <button @click="closePaymentsForm">Close</button>
     </main>
   </div>
 </template>
@@ -43,6 +47,8 @@ import AddPayment from './components/AddPayment.vue'
 
 // Пагинация
 import Pagination from './components/Pagination.vue'
+
+import ModalWindowAddPaymentForm from './components/ModalWindowAddPaymentForm.vue'
 
 // import About from './views/About.vue'
 // import Dashboard from './views/Dashboard.vue'
@@ -59,7 +65,8 @@ export default {
     // About,
     // Dashboard,
     // NotFound,
-    Pagination
+    Pagination,
+    ModalWindowAddPaymentForm
   },
 
   data() {
@@ -67,6 +74,7 @@ export default {
       page: '',
       curPage: 1,
       n: 10,
+      modalSettings: {}
     }
   },
 
@@ -109,6 +117,29 @@ export default {
     onChangePage(p) {
       this.curPage = p
     },
+
+    onClose() {
+      this.addFormShown = false
+    },
+
+    // Настройка плагина (модального окна)
+    onShown(settings) {
+      this.modalSettings = settings
+    },
+
+    // При закрытии модальное окно очищается
+    onHide() {
+      this.modalSettings = {}
+    },
+
+    showPaymentsForm() {
+      // this.$modal.show('addPaymentForm', {header: 'Add'})
+      this.$modal.show('AddPayment', {header: 'Add'})
+    },
+
+    closePaymentsForm() {
+      this.$modal.hide()
+    }
   },
 
   computed: {
@@ -190,6 +221,15 @@ export default {
     /*window.addEventListener('hashchange', () => {
       this.setPage()
     })*/
+
+    // TODO: Это слушатели, от них нужно отписываться, чтобы не загружать память
+    this.$modal.EventBus.$on('shown', this.onShown)
+    this.$modal.EventBus.$on('hide', this.onHide)
+  },
+
+  beforeDestroy() {
+    this.$modal.EventBus.$off('shown', this.onShown)
+    this.$modal.EventBus.$off('hide', this.onHide)
   }
 }
 </script>

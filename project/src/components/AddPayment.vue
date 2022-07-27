@@ -36,7 +36,7 @@ export default {
     methods: {
         goToPageDashboard() {
             this.$router.push({
-                name: 'dashboard'
+                name: 'dashboard/1'
             })
         },
 
