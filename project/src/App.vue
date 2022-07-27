@@ -5,8 +5,11 @@
     </header>
     <div class="menu">
       <!-- Запросы (переходы) -->
-      <router-link to='/dashboard'>Dashboard</router-link> /
+      <router-link to='/dashboard/5'>Dashboard</router-link> /
       <router-link to='/about'>About</router-link> /
+      <router-link to='/add/payment/Food?value=200&second=200'>Add (Food)</router-link> /
+      <router-link to='/add/payment/Transport?value=50'>Add (Transport)</router-link> /
+      <router-link to='/add/payment/Entertainment?value=2000'>Add (Entertainment)</router-link> /
       <router-link to='/notfound'>Not Found</router-link> / 
       <!-- Второй способ запроса через button -->
       <button @click='goToThePageNotFound'>Not Found</button>
@@ -22,12 +25,19 @@
         <Dashboard v-if="page === 'dashboard'" />
         <NotFound v-if="page === 'notfound'" /> -->
       </div>
+      <br>
       <AddPayment @addNewPayment="addData" />
       <br>
       Total: {{ getFPV }}
       <br>
       <PaymentsDisplay :list="currentElements"/>
       <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
+      <br>
+      <transition name="fade">
+        <modalWindowAddPaymentForm @close="onClose" v-if="modalSettings.name" :settings="modalSettings" />
+      </transition>
+      <button @click="showPaymentsForm">Show Payments Form</button>
+      <button @click="closePaymentsForm">Close</button>
     </main>
   </div>
 </template>
@@ -55,7 +65,11 @@ export default {
     // About,
     // Dashboard,
     // NotFound,
-    Pagination
+    Pagination,
+    /* TODO: Иногда компонент не запрашивается, но он грузится,
+      для того, чтобы он не грузился и не занимал память, если он
+      не нужен используют import */
+    ModalWindowAddPaymentForm: ()=> import(/* webpackChunkName: 'ModalWindow' */'./components/ModalWindowAddPaymentForm.vue')
   },
 
   data() {
@@ -63,6 +77,7 @@ export default {
       page: '',
       curPage: 1,
       n: 10,
+      modalSettings: {}
     }
   },
 
@@ -105,6 +120,29 @@ export default {
     onChangePage(p) {
       this.curPage = p
     },
+
+    onClose() {
+      this.addFormShown = false
+    },
+
+    // Настройка плагина (модального окна)
+    onShown(settings) {
+      this.modalSettings = settings
+    },
+
+    // При закрытии модальное окно очищается
+    onHide() {
+      this.modalSettings = {}
+    },
+
+    showPaymentsForm() {
+      // this.$modal.show('addPaymentForm', {header: 'Add'})
+      this.$modal.show('AddPayment', {header: 'Add'})
+    },
+
+    closePaymentsForm() {
+      this.$modal.hide()
+    }
   },
 
   computed: {
@@ -186,6 +224,15 @@ export default {
     /*window.addEventListener('hashchange', () => {
       this.setPage()
     })*/
+
+    // TODO: Это слушатели, от них нужно отписываться, чтобы не загружать память
+    this.$modal.EventBus.$on('shown', this.onShown)
+    this.$modal.EventBus.$on('hide', this.onHide)
+  },
+
+  beforeDestroy() {
+    this.$modal.EventBus.$off('shown', this.onShown)
+    this.$modal.EventBus.$off('hide', this.onHide)
   }
 }
 </script>
@@ -202,5 +249,16 @@ export default {
 
 .wrapper {
   margin: 0 auto;
+}
+</style>
+
+// Для работы с transition нужно, чтобы стили были глобальными
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .9s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
