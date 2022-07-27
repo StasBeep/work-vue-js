@@ -5,7 +5,7 @@
     </header>
     <div class="menu">
       <!-- Запросы (переходы) -->
-      <router-link to='/dashboard'>Dashboard</router-link> /
+      <router-link to='/dashboard/5'>Dashboard</router-link> /
       <router-link to='/about'>About</router-link> /
       <router-link to='/add/payment/Food?value=200&second=200'>Add (Food)</router-link> /
       <router-link to='/add/payment/Transport?value=50'>Add (Transport)</router-link> /
@@ -33,7 +33,9 @@
       <PaymentsDisplay :list="currentElements"/>
       <Pagination :cur="curPage" :n="n" :length="paymentsList.length" @paginate="onChangePage"/>
       <br>
-      <modalWindowAddPaymentForm @close="onClose" v-if="modalSettings.name" :settings="modalSettings" />
+      <transition name="fade">
+        <modalWindowAddPaymentForm @close="onClose" v-if="modalSettings.name" :settings="modalSettings" />
+      </transition>
       <button @click="showPaymentsForm">Show Payments Form</button>
       <button @click="closePaymentsForm">Close</button>
     </main>
@@ -47,8 +49,6 @@ import AddPayment from './components/AddPayment.vue'
 
 // Пагинация
 import Pagination from './components/Pagination.vue'
-
-import ModalWindowAddPaymentForm from './components/ModalWindowAddPaymentForm.vue'
 
 // import About from './views/About.vue'
 // import Dashboard from './views/Dashboard.vue'
@@ -66,7 +66,10 @@ export default {
     // Dashboard,
     // NotFound,
     Pagination,
-    ModalWindowAddPaymentForm
+    /* TODO: Иногда компонент не запрашивается, но он грузится,
+      для того, чтобы он не грузился и не занимал память, если он
+      не нужен используют import */
+    ModalWindowAddPaymentForm: ()=> import(/* webpackChunkName: 'ModalWindow' */'./components/ModalWindowAddPaymentForm.vue')
   },
 
   data() {
@@ -246,5 +249,16 @@ export default {
 
 .wrapper {
   margin: 0 auto;
+}
+</style>
+
+// Для работы с transition нужно, чтобы стили были глобальными
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .9s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

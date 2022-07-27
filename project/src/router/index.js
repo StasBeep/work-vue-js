@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router'
 
-import Dashboard from '../views/Dashboard.vue'
-import About from '../views/About.vue'
-import NotFound from '../views/NotFound.vue'
+// import Dashboard from '../views/Dashboard.vue'
+// import About from '../views/About.vue'
+// import NotFound from '../views/NotFound.vue'
 
-import AddPayment from '../components/AddPayment.vue'
+// import AddPayment from '../components/AddPayment'
 
 Vue.use(Router)
 
@@ -17,7 +17,8 @@ const router = new Router({
             // Путь
             path: '/dashboard',
             // Компонент реализации
-            component: Dashboard,
+            // component: Dashboard,
+            component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'dashboard'
         },
@@ -27,7 +28,8 @@ const router = new Router({
             // номер страницы поиска
             path: '/dashboard/:page',
             // Компонент реализации
-            component: Dashboard,
+            // component: Dashboard,
+            component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'dashboard'
         },
@@ -35,7 +37,8 @@ const router = new Router({
             // Путь
             path: '/add/payment/:category',
             // Компонент реализации
-            component: AddPayment,
+            // component: AddPayment,
+            component: ()=>import(/* webpackChunkName: 'AddPayment' */'../components/AddPayment.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'addPayment'
         },
@@ -43,7 +46,8 @@ const router = new Router({
             // Путь
             path: '/about',
             // Компонент реализации
-            component: About,
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../views/About.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
         },
@@ -52,7 +56,8 @@ const router = new Router({
             // Путь
             path: '/about*',
             // Компонент реализации
-            component: About,
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../views/About.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
         },
@@ -60,7 +65,8 @@ const router = new Router({
             // Путь
             path: '/add/payment/:category',
             // Компонент реализации
-            component: AddPayment,
+            // component: AddPayment,
+            component: ()=>import(/* webpackChunkName: 'AddPayment' */ '../components/AddPayment.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'addPayment'
         },
@@ -76,7 +82,8 @@ const router = new Router({
         {
             // Обработай все адреса (если нет удовлетворяющих)
             path: '*',
-            component: NotFound,
+            // component: NotFound,
+            component: ()=>import(/* webpackChunkName: 'NotFound' */'../views/NotFound.vue'),
             name: 'NotFound'
         }
     ]
