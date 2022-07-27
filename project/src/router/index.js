@@ -1,37 +1,53 @@
 import Vue from 'vue';
 import Router from 'vue-router'
 
-import Dashboard from '../views/Dashboard.vue'
-import About from '../views/About.vue'
-import NotFound from '../views/NotFound.vue'
+// import Dashboard from '../views/Dashboard.vue'
+// import About from '../views/About.vue'
+// import NotFound from '../views/NotFound.vue'
+
+// import AddPayment from '../components/AddPayment'
 
 Vue.use(Router)
 
 const router = new Router({
-    // Убирает #
+    // Убирает # (Настраивает история запросов)
     mode: 'history',
     routes: [
         { 
             // Путь
             path: '/dashboard',
             // Компонент реализации
-            component: Dashboard,
+            // component: Dashboard,
+            component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'dashboard'
         },
         { 
-            // Путь
+            // Не простой путь, а с параметром (:page - это произвольный параметр, который
+            // может быть заменён), в данном случае он используется в App.vue, и определяет
+            // номер страницы поиска
             path: '/dashboard/:page',
             // Компонент реализации
-            component: Dashboard,
+            // component: Dashboard,
+            component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'dashboard'
+        },
+        {
+            // Путь
+            path: '/add/payment/:category',
+            // Компонент реализации
+            // component: AddPayment,
+            component: ()=>import(/* webpackChunkName: 'AddPayment' */'../components/AddPayment.vue'),
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'addPayment'
         },
         { 
             // Путь
             path: '/about',
             // Компонент реализации
-            component: About,
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../views/About.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
         },
@@ -40,9 +56,19 @@ const router = new Router({
             // Путь
             path: '/about*',
             // Компонент реализации
-            component: About,
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../views/About.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'about'
+        },
+        { 
+            // Путь
+            path: '/add/payment/:category',
+            // Компонент реализации
+            // component: AddPayment,
+            component: ()=>import(/* webpackChunkName: 'AddPayment' */ '../components/AddPayment.vue'),
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'addPayment'
         },
         /*{ 
             // Путь
@@ -56,7 +82,8 @@ const router = new Router({
         {
             // Обработай все адреса (если нет удовлетворяющих)
             path: '*',
-            component: NotFound,
+            // component: NotFound,
+            component: ()=>import(/* webpackChunkName: 'NotFound' */'../views/NotFound.vue'),
             name: 'NotFound'
         }
     ]
@@ -65,10 +92,11 @@ const router = new Router({
 // Имитация авторизации
 // Если пользователь авторизован, доступ есть
 // Если пользователь не авторизован, то доступ закрыт
-// const isAuth = false
+// Сосотояние до загрузки страницы (доступ)
+/*const isAuth = false
 
-/* router.beforeEach((to, from, next) => {
-    if(!isAuth) {
+router.beforeEach((to, from, next) => {
+    if(to.name !== 'NotFound' && !isAuth) {
         next({name: 'NotFound'})
     }else {
         next()
@@ -84,6 +112,7 @@ const getTitle = routName => {
     return {
         'dashboard': 'Take a look on your payments and add more!',
         'about': 'Anything about our awesome application!',
+        'addPayment': 'adding elements',
         'NotFound': 'Oops! Seems like we lost this page :('
     }[routName]
 }

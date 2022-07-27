@@ -8,7 +8,7 @@
         </div>
         <hr>
         <div v-for="(item, idx) in list" :key="idx" class="list">
-            <span class="list-num">{{ idx + 1 }}</span>
+            <span class="list-num">{{ item.id }}</span>
             <span class="list-data">{{ item.data }}</span>
             <span class="list-category">{{ item.category }}</span>
             <span class="list-value">{{ item.value }}</span>
