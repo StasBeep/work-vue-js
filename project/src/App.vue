@@ -10,7 +10,8 @@
       <router-link to='/add/payment/Food?value=200&second=200'>Add (Food)</router-link> /
       <router-link to='/add/payment/Transport?value=50'>Add (Transport)</router-link> /
       <router-link to='/add/payment/Entertainment?value=2000'>Add (Entertainment)</router-link> /
-      <router-link to='/notfound'>Not Found</router-link> / 
+      <router-link to='/notfound'>Not Found</router-link> /
+      <router-link to='/calc'>Calc</router-link> /  
       <!-- Второй способ запроса через button -->
       <button @click='goToThePageNotFound'>Not Found</button>
       <!-- <a href="dashboard">Dashboard</a> /
@@ -20,6 +21,7 @@
     <main>
       <div class="content-page">
         <!-- Отображение данный router-link -->
+        <br>
         <router-view />
         <!-- <About v-if="page === 'about'" />
         <Dashboard v-if="page === 'dashboard'" />

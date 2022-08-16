@@ -70,6 +70,15 @@ const router = new Router({
             // Имя роута (может понадобится в дальнейшем)
             name: 'addPayment'
         },
+        { 
+            // Путь
+            path: '/calc',
+            // Компонент реализации
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../components/Calc.vue'),
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'about'
+        },
         /*{ 
             // Путь
             path: '/notfound',

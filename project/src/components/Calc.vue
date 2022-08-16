@@ -11,7 +11,7 @@
                     placeholder="op2" 
                     v-model.number="operand2"
             >
-            = {{ result }} - {{ fibResult }}
+            = {{ result }}
         </div>
         <div class="buttons">
             <button v-for="btn in buttons" 
@@ -61,11 +61,6 @@
             </div>
         </div>
         <span class="error" v-show="error">{{ error }}</span>
-        <div class="strange-message">
-            <template v-if="result < 0">Отрицательное число</template>
-            <template v-else-if="result < 100">Число меньше 100</template>
-            <template v-else>Число больше 100</template>
-        </div>
         <div class="logs">
             {{ logs }}
         </div>
@@ -81,35 +76,13 @@ export default {
         result: 0,
         buttons: ['+', '-', '*', '/', '^', '[ ]'],
         collection: [0,1,2,3,4,5,6,7,8,9,"<"],
-        fibResult: 0,
         logs: {},
         error: "",
         check: false,
         radioInp: true,
     }),
 
-    // Ослеживание данных
-    watch: {
-        result: function(newValue, oldValue) {
-            console.log(newValue, oldValue);
-        },
-        logs: {
-            deep: true,
-            handler() {
-                console.log('deep');
-            }
-        },
-        operand1: function(newValue, oldValue) {
-            console.log(newValue, oldValue);
-        }
-    },
-
     methods: {
-
-        fib(n){
-            return n <= 1 ? n : this.fib(n - 1) + this.fib(n - 2);
-        },
-
         // Оптимизация работы калькулятора (switch)
         calculate(operation = "+") {
             this.error = "";
@@ -158,9 +131,6 @@ export default {
         // Cложение
         add() {
             this.result = this.operand1 + this.operand2;
-            //this.fibResult = this.fib(this.operand1) + this.fib(this.operand2);
-            // Слишком объёмная задача, снял её с действия
-            //this.fibResult = this.fib1 + this.fib2;
         },
         // Вычитание
         substract () {
@@ -225,18 +195,6 @@ export default {
             i.value = operator;
             return operator;
         }
-    },
-    // Вычисляемые свойства
-    computed: {
-        /*fib1() {
-            console.log(this.fib(this.operand1))
-            return this.fib(this.operand1)
-        },
-
-        fib2() {
-            console.log(this.fib(this.operand2))
-            return this.fib(this.operand2)
-        }*/
     }
 }
 </script>
