@@ -5,11 +5,13 @@
                     id="op1"
                     placeholder="op1" 
                     v-model.number="operand1"
+                    name="operand1"
             > 
             <input type="number" 
                     id="op2"
                     placeholder="op2" 
                     v-model.number="operand2"
+                    name="operand2"
             >
             = {{ result }}
         </div>
@@ -17,6 +19,7 @@
             <button v-for="btn in buttons" 
                     :key="btn" 
                     @click="calculate(btn)"
+                    :name="btn"
             >
                     {{ btn }}
             </button>
