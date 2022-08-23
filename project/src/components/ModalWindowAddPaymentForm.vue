@@ -19,13 +19,15 @@
 
 <script>
 
-import AddPayment from './AddPayment.vue' 
+import AddPayment from './AddPayment.vue'
+import Calc from './Calc.vue'
 
 export default {
     name: 'ModalWindowAddPaymentForm',
 
     components: {
-        AddPayment
+        AddPayment,
+        Calc
     },
 
     props: {
