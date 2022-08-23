@@ -34,6 +34,12 @@ export default {
     }),
 
     methods: {
+        goToPageDashboard() {
+            this.$router.push({
+                name: 'dashboard/1'
+            })
+        },
+
         onSelect(el) {
             this.category = el
         },
@@ -47,7 +53,12 @@ export default {
             }
             // console.log(data);
             // Вызов события, название события и аргументы
-
+            
+            if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+                this.$store.commit('addDataToPaymentList', data)
+                this.goToPageDashboard()
+            }
+            
             this.$emit('addNewPayment', data);
         },
     },
@@ -65,11 +76,39 @@ export default {
             const y = today.getFullYear();
             return `${d}.${m}.${y}`;
         },
+
+        // Момент запроса есть ли value, если нет, то вернуть null
+        getValueStatusRoute() {
+            // console.log(this.$route.query?.value)
+            return Number(this.$route.query?.value) ?? null
+        },
+
+        getParamsCategoryStatusRoute() {
+            // console.log(this.$route)
+            return this.$route.params?.category ?? null
+        }
+    },
+
+    // Компонент ещё не смонтирован
+    created() {
+        if(!this.getValueStatusRoute && !this.getParamsCategoryStatusRoute) {
+            this.goToPageDashboard()
+        }
+        this.category = this.getParamsCategoryStatusRoute
+        this.value = this.getValueStatusRoute
+    },
+
+    // Момент монтирования
+    mounted() {
+        // открытие дабавочного элемента
+        if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
+            this.show = false
+        }
     },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .btn-hide {
         padding: 8px 20px;
         text-transform: uppercase;
@@ -78,11 +117,11 @@ export default {
         cursor: pointer;
         color: white;
         transition: 1s ease;
-    }
 
-    .btn-hide:hover {
-        color: black;
-        transform: scale(1.1);
+        &:hover {
+            color: black;
+            transform: scale(1.1);
+        }
     }
 
     .btn-add {
@@ -92,11 +131,11 @@ export default {
         cursor: pointer;
         color: white;
         transition: 1s ease;
-    }
 
-    .btn-add:hover {
-        color: black;
-        transform: scale(1.1);
+        &:hover {
+            color: black;
+            transform: scale(1.1);
+        }
     }
 
     .enter-input {
