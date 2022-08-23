@@ -34,6 +34,7 @@
             <button v-for="itemNum in collection" 
                     :key="itemNum"
                     @click="pushEl(itemNum, radioInp)"
+                    :name="itemNum"
             >
                 {{ itemNum }}
             </button>
