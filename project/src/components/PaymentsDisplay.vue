@@ -12,6 +12,7 @@
             <span class="list-data">{{ item.data }}</span>
             <span class="list-category">{{ item.category }}</span>
             <span class="list-value">{{ item.value }}</span>
+            <span class="list-edit" @click="onContextMenuClick($event, item.id)">...</span>
         </div>
     </div>
 </template>
@@ -31,6 +32,28 @@ export default {
     data() {
         return {
 
+        }
+    },
+
+    methods: {
+        onContextMenuClick(event, id) {
+            console.log(event)
+            const items = [
+                { text: "Detete", action: () => {this.actionDelete(id)}},
+                { text: "Edit", action: () => {this.actionEdit(id)}},
+                { text: "Add", action: () => {console.log('Add', id)}}
+            ];
+
+            this.$context.show({event, items});
+        },
+
+        actionEdit(item) {
+            this.$modal.show('AddPayment', {header: "Add", editedValue: item});
+        },
+
+        actionDelete(item) {
+            console.log(item);
+            this.$context.close();
         }
     }
 }

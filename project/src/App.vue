@@ -36,6 +36,9 @@
       <transition name="fade">
         <modalWindowAddPaymentForm @close="onClose" v-if="modalSettings.name" :settings="modalSettings" />
       </transition>
+      <transition name="fade">
+        <ContextMenu />
+      </transition>
       <button @click="showPaymentsForm">Show Payments Form</button>
       <button @click="closePaymentsForm">Close</button>
     </main>
@@ -49,6 +52,7 @@ import AddPayment from './components/AddPayment.vue'
 
 // Пагинация
 import Pagination from './components/Pagination.vue'
+import ContextMenu from './components/ContextMenu.vue'
 
 // import About from './views/About.vue'
 // import Dashboard from './views/Dashboard.vue'
@@ -66,6 +70,7 @@ export default {
     // Dashboard,
     // NotFound,
     Pagination,
+    ContextMenu,
     /* TODO: Иногда компонент не запрашивается, но он грузится,
       для того, чтобы он не грузился и не занимал память, если он
       не нужен используют import */
