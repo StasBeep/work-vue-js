@@ -53,7 +53,6 @@ export default {
             }
             // console.log(data);
             // Вызов события, название события и аргументы
-            
             if(this.getValueStatusRoute && this.getParamsCategoryStatusRoute) {
                 this.$store.commit('addDataToPaymentList', data)
                 this.goToPageDashboard()

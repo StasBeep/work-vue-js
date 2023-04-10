@@ -36,14 +36,23 @@ export default {
     },
 
     methods: {
-        onContextMenuClick(event , id) {
+        onContextMenuClick(event , item) {
             console.log(event)
             const items = [
-                { text: "Delete", action: () => { console.log('Delete', id)} },
-                { text: "Edit", action: () => { console.log('Edit', id)} },
-                { text: "Add", action: () => { console.log('Add', id)} }
+                { text: "Edit", action: () => { this.actionEdit(item)} },
+                { text: "Detele", action: () => { this.actionDetele(item) } },
+                { text: "Add", action: () => { console.log('Add', item.id)} }
             ];
             this.$context.show({event, items});
+        },
+        
+        actionEdit(item) {
+            this.$modal.show('AddPayment', {header: "Add", editedValue: item});
+        },
+
+        actionDetele(item) {
+            console.log(item);
+            this.$context.close();
         }
     }
 }
