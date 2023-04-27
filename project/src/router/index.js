@@ -31,7 +31,7 @@ const router = new Router({
             // component: Dashboard,
             component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
-            name: 'dashboard'
+            name: 'dashboard/1'
         },
         {
             // Путь
