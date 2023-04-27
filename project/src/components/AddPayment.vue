@@ -1,36 +1,22 @@
 <template>
-    <div>
-        <button class="btn-hide" v-show="show" @click="show = !show">add new cost +</button>
-        <div v-show="!show">
-            <input v-model="date" class="enter-input" placeholder="date">
-            <CategorySelect
-                @select="onSelect"
-                :categoryList="categoryList" />
-            <input v-model.number="value" class="enter-input" type="number" placeholder="value">
-            <button @click="onClick" class="btn-add">Add Data</button>
-            <button class="btn-hide" @click="show = !show">hide -</button>
-        </div>
-    </div>
+    <v-card class="py-4 px-4">
+        <v-text-field v-model="date" label="Date" placeholder="date"/>
+        <v-select v-model="category" label="Category" :items="categoryList" />
+        <v-text-field v-model.number="value" label="number" type="number" placeholder="value" />
+        <button @click="onClick" class="btn-add">Add Data</button>
+    </v-card>
 </template>
 
 <script>
-
-import CategorySelect from './CategorySelect.vue'
-
 import { mapGetters } from 'vuex'
 
 export default {
     name: "AddPayment",
 
-    components: {
-        CategorySelect,
-    },
-
     data: () => ({
         date: "",
         category: "",
         value: null,
-        show: true,
     }),
 
     methods: {
@@ -108,38 +94,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .btn-hide {
-        padding: 8px 20px;
-        text-transform: uppercase;
-        background: #30d5c8;
-        border: none;
-        cursor: pointer;
-        color: white;
-        transition: 1s ease;
 
-        &:hover {
-            color: black;
-            transform: scale(1.1);
-        }
-    }
-
-    .btn-add {
-        padding: 8px 20px;
-        border: none;
-        background: red;
-        cursor: pointer;
-        color: white;
-        transition: 1s ease;
-
-        &:hover {
-            color: black;
-            transform: scale(1.1);
-        }
-    }
-
-    .enter-input {
-        padding: 6px 10px;
-        border: 1px solid grey;
-        outline: none;
-    }
 </style>
