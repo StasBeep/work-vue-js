@@ -1,19 +1,21 @@
 <template>
-    <div class="payments-list">
-        <div class="signature">
-            <span class="signature-num">#</span>
-            <span class="signature-date">Date</span>
-            <span class="signature-category">Category</span>
-            <span class="signature-value">Value</span>
-        </div>
+    <v-container>
+        <v-row>
+            <v-col :cols="1">#</v-col>
+            <v-col :cols="4">Date</v-col>
+            <v-col :cols="4">Category</v-col>
+            <v-col :cols="2">Value</v-col>
+            <v-col>...</v-col>
+        </v-row>
         <hr>
-        <div v-for="(item, idx) in list" :key="idx" class="list">
-            <span class="list-num">{{ idx + 1 }}</span>
-            <span class="list-data">{{ item.data }}</span>
-            <span class="list-category">{{ item.category }}</span>
-            <span class="list-value">{{ item.value }}</span>
-        </div>
-    </div>
+        <v-row v-for="(item, idx) in list" :key="idx">
+            <v-col :cols="1">{{ item.id }}</v-col>
+            <v-col :cols="4">{{ item.data }}</v-col>   
+            <v-col :cols="4">{{ item.category }}</v-col>
+            <v-col :cols="2">{{ item.value }}</v-col>
+            <v-col @click="onContextMenuClick()">...</v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -32,70 +34,31 @@ export default {
         return {
 
         }
+    },
+
+    methods: {
+        onContextMenuClick() {
+            /*console.log(event)
+            const items = [
+                { text: "Edit", action: () => { this.actionEdit(item)} },
+                { text: "Detele", action: () => { this.actionDetele(item) } },
+                { text: "Add", action: () => { console.log('Add', item.id)} }
+            ];
+            this.$context.show({event, items});*/
+        },
+        
+        actionEdit(item) {
+            this.$modal.show('AddPayment', {header: "Add", editedValue: item});
+        },
+
+        actionDetele(item) {
+            console.log(item);
+            this.$context.close();
+        }
     }
 }
 </script>
 
 <style scoped>
-    .payments-list {
-        max-width: 470px;
-    }
-
-    .signature {
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .signature-num {
-        display: block;
-        margin-left: 20px;
-    }
-
-    .signature-date {
-        display: block;
-        margin: 0 20px 2px;
-    }
-
-    .signature-category {
-        display: block;
-    }
-
-    .signature-value {
-        display: block;
-        margin-right: 18px;
-    }
-
-    .list{
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .list-num {
-        display: block;
-        margin: 0 0 10px 8px;
-        width: 30px;
-        text-align: center;
-    }
-
-    .list-data {
-        display: block;
-        margin: 0 0 0 0;
-        width: 75px;
-        text-align: left;
-    }
-
-    .list-category {
-        display: block;
-        margin: 0 0 0 0;
-        width: 75px;
-        text-align: center;
-    }
-
-    .list-value {
-        display: block;
-        margin: 0 12px 0 0;
-        width: 50px;
-        text-align: center;
-    }
+    
 </style>

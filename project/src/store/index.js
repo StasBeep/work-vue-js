@@ -88,26 +88,32 @@ export default new Vuex.Store({
     // Запускают mutations
     // Запрос -> получение -> вызов действий mutations
     actions: {
+        addData({commit}, payload) {
+            console.log(commit, payload);
+        },
+
         fetchData({commit}) {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const items = [];
                     let n = Number(this.state.defaultFetchData.length);
-                    console.log(n)
-                    console.log(this.state.defaultFetchData[0])
+                    // console.log(n)
+                    // console.log(this.state.defaultFetchData[0])
                     for(let i = 0; i < 50 ; i++){
                         if(n !== 0) {
                             items.push({
                                 data: this.state.defaultFetchData[i].data,
                                 category: this.state.defaultFetchData[i].category,
-                                value: this.state.defaultFetchData[i].value
+                                value: this.state.defaultFetchData[i].value,
+                                id: i + 1
                             });
                             n--;
                         }else {
                             items.push({
                                 data: "23.12.2020",
                                 category: "Sport",
-                                value: i
+                                value: i,
+                                id: i
                             })
                         }
                     }
