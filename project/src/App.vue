@@ -1,82 +1,24 @@
 <template>
-  <div id="app" :class="[$style.wrapper]">
-    <header>
-      <h1>My personal cost</h1>
-    </header>
-    <!-- Подготовка к выполнению домашнего задания 9 -->
-    <main>
-      <AddPayment @addNewPayment="addData" />
-      <br>
-      <PaymentsDisplay :list="paymentsList"/>
-    </main>
-  </div>
+  <v-app>
+    <v-app-bar app>
+      <v-btn to="/dashboard" plain :ripple="false">Dashboard</v-btn>
+      <v-btn to="/about" plain :ripple="false">About</v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
-import PaymentsDisplay from './components/PaymentsDisplay.vue'
-import AddPayment from './components/AddPayment.vue'
-
 export default {
-  name: 'App',
-  
-  components: {
-    PaymentsDisplay,
-    AddPayment
-  },
+  name: "App",
 
   data: () => ({
-    paymentsList: []
+    //
   }),
-
-  methods: {
-    addData(data) {
-      console.log(data);
-      // this.paymentsList.push(data);
-      // Второй метод вывода
-      this.paymentsList = [...this.paymentsList, data];
-    },
-
-    fetchData() {
-      return [
-        {
-          data: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          data: "20.04.2021",
-          category: "Sport",
-          value: 400
-        },
-        {
-          data: "20.05.2021",
-          category: "Internet",
-          value: 200
-        },
-      ]
-    }
-  },
-
-  // Хук (компонент ещё не смонтирован)
-    created() {
-      // реактивность
-      this.paymentsList = this.fetchData()
-    }
-}
+};
 </script>
-
-<style lang="scss" module>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.wrapper {
-  
-}
-</style>
