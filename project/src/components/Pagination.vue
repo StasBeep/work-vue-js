@@ -9,11 +9,28 @@
             @click="onClick(i)"
         >{{ i }}</div>
         <div @click="onClick(cur + 1)">+</div>
+        
+        <v-pagination
+            v-model="activePage"
+            :length="numberPage"
+            prev-icon="mdi-menu-left"
+            next-icon="mdi-menu-right"
+            :v-bind="onClick(activePage)"
+        ></v-pagination>
     </div>
 </template>
 
 <script>
 export default {
+    name: 'PaginationElement',
+
+    data() {
+        return {
+            numberPage: Math.ceil(this.length / this.n),
+            activePage: 1
+        }
+    },
+
     props: {
         length: Number,
         // Количество элементов

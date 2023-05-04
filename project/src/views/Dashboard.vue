@@ -37,7 +37,7 @@ import Pagination from "../components/Pagination.vue";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "Dashboard",
+  name: "DashboardElement",
 
   components: {
     AddPayment,

@@ -3,7 +3,7 @@
         <v-text-field v-model="date" label="Date" placeholder="date"/>
         <v-select v-model="category" label="Category" :items="categoryList" />
         <v-text-field v-model.number="value" label="number" type="number" placeholder="value" />
-        <button @click="onClick" class="btn-add">Add Data</button>
+        <v-btn color="teal" dark @click="onClick" class="btn-add">Add Data<v-icon>mdi-plus</v-icon></v-btn>
     </v-card>
 </template>
 
