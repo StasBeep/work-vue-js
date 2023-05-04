@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <Btns @custom-event-1="firstProsmotr" @custom-event-2="secondProsmotr"/>
+    
   </div>
 </template>
 

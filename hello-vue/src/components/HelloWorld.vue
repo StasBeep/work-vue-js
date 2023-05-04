@@ -1,15 +1,41 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <button @click="showModal = !showModal">Click</button>
+    <teleport to="#modal">
+      <ModalElement v-if="showModal">
+        <p>Modal Window</p>
+        <button @click="showModal = false">Click</button>
+      </ModalElement>
+    </teleport>
   </div>
 </template>
 
 <script>
+import ModalElement from './ModalElement.vue';
+
 export default {
   name: "HelloWorld",
+
+  components: {
+    ModalElement
+  },
+
   props: {
     msg: String,
   },
+
+  data() {
+    return {
+      showModal: false,
+    }
+  },
+
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal;
+    }
+  }
 };
 </script>
 

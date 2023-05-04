@@ -1,7 +1,8 @@
 <template>
   <div>
     <button @click="clickHandler">button 1</button>
-    <Teleport to='.my-div'>
+    <button @click="shwModal = !shwModal">Click</button>
+    <Teleport to='.my-div' v-if="shwModal">
       <p> From Hello World </p>
     </Teleport>
   </div>
@@ -13,7 +14,8 @@ export default {
 
     data() {
       return {
-        smt: 0
+        smt: 0,
+        shwModal: false,
       }
     },
 
