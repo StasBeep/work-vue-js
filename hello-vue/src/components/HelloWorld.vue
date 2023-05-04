@@ -8,17 +8,21 @@
         <button @click="showModal = false">Click</button>
       </ModalElement>
     </teleport>
+
+    <login-form v-model:username="user.name" v-model:password="user.pass"/>
   </div>
 </template>
 
 <script>
+import LoginForm from './LoginForm.vue';
 import ModalElement from './ModalElement.vue';
 
 export default {
   name: "HelloWorld",
 
   components: {
-    ModalElement
+    ModalElement,
+    LoginForm
   },
 
   props: {
@@ -28,6 +32,10 @@ export default {
   data() {
     return {
       showModal: false,
+      user: {
+        name: 'Vasia',
+        isAdmin: false
+      }
     }
   },
 
