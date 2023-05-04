@@ -1,8 +1,9 @@
 <template>
   <div>
-    <button>button 1</button>
-    <button @click="changeSmt">button 2</button>
-    {{ smt }}
+    <button @click="clickHandler">button 1</button>
+    <Teleport to='.my-div'>
+      <p> From Hello World </p>
+    </Teleport>
   </div>
 </template>
 
@@ -16,9 +17,19 @@ export default {
       }
     },
 
+    // Выявление emit на данном компоненте, правило хорошего тона
+    emits: {
+      'custom-event-1': null,
+      // валидация emit
+      'custom-event-2' (payload) {
+          return !!(payload?.name && payload?.role);
+        }
+    },
+
     methods: {
-      changeSmt() {
-        this.smt++;
+      clickHandler() {
+        this.$emit('custom-event-1', 'data-1');
+        this.$emit('custom-event-2', {name: 'Vasia', role: 'admin'});
       }
     }
 }
