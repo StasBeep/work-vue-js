@@ -25,7 +25,7 @@
       />
       <br />
     </v-col>
-    <v-col> chart </v-col>
+    <v-col> <BarChart /> <PieChart /> </v-col>
   </v-row>
 </template>
 
@@ -33,6 +33,8 @@
 import AddPayment from "../components/AddPayment.vue";
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
 import Pagination from "../components/Pagination.vue";
+import BarChart from '../components/BarChart.vue'
+import PieChart from '../components/PieChart.vue'
 
 import { mapMutations, mapGetters, mapActions } from "vuex";
 
@@ -43,6 +45,8 @@ export default {
     AddPayment,
     PaymentsDisplay,
     Pagination,
+    BarChart,
+    PieChart
   },
 
   data() {
