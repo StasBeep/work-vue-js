@@ -5,7 +5,6 @@
             <v-col :cols="4">Date</v-col>
             <v-col :cols="4">Category</v-col>
             <v-col :cols="2">Value</v-col>
-            <v-col>...</v-col>
         </v-row>
         <hr>
         <v-row v-for="(item, idx) in list" :key="idx">
@@ -13,7 +12,6 @@
             <v-col :cols="4">{{ item.data }}</v-col>   
             <v-col :cols="4">{{ item.category }}</v-col>
             <v-col :cols="2">{{ item.value }}</v-col>
-            <v-col @click="onContextMenuClick()">...</v-col>
         </v-row>
     </v-container>
 </template>

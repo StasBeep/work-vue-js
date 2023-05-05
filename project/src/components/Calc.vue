@@ -73,7 +73,7 @@
 
 <script>
 export default {
-    name: "Calc",
+    name: "CalcElement",
     data:() => ({
         operand1: 0,
         operand2: 0,
