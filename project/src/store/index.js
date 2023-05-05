@@ -88,6 +88,10 @@ export default new Vuex.Store({
     // Запускают mutations
     // Запрос -> получение -> вызов действий mutations
     actions: {
+        addData({commit}, payload) {
+            console.log(commit, payload);
+        },
+
         fetchData({commit}) {
             return new Promise((resolve) => {
                 setTimeout(() => {
