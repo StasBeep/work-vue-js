@@ -31,7 +31,7 @@ const router = new Router({
             // component: Dashboard,
             component: ()=>import(/* webpackChunkName: 'Dashboard' */'../views/Dashboard.vue'),
             // Имя роута (может понадобится в дальнейшем)
-            name: 'dashboard'
+            name: 'dashboard/1'
         },
         {
             // Путь
@@ -69,6 +69,15 @@ const router = new Router({
             component: ()=>import(/* webpackChunkName: 'AddPayment' */ '../components/AddPayment.vue'),
             // Имя роута (может понадобится в дальнейшем)
             name: 'addPayment'
+        },
+        { 
+            // Путь
+            path: '/calc',
+            // Компонент реализации
+            // component: About,
+            component: ()=>import(/* webpackChunkName: 'About' */ '../components/Calc.vue'),
+            // Имя роута (может понадобится в дальнейшем)
+            name: 'about'
         },
         /*{ 
             // Путь
