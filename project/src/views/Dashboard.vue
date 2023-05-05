@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col>
+    <v-col :cols="4">
       <h1 class="text-h5 text-sm-h3 mb-8">My personal Cost</h1>
       <v-dialog
         v-model="dialog"
@@ -25,7 +25,10 @@
       />
       <br />
     </v-col>
-    <v-col> <BarChart /> <PieChart /> </v-col>
+    <v-col :cols="4">
+      <BarChart />
+      <DoughnutChart />
+    </v-col>
   </v-row>
 </template>
 
@@ -34,7 +37,7 @@ import AddPayment from "../components/AddPayment.vue";
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
 import Pagination from "../components/Pagination.vue";
 import BarChart from '../components/BarChart.vue'
-import PieChart from '../components/PieChart.vue'
+import DoughnutChart from '../components/DoughnutChart.vue'
 
 import { mapMutations, mapGetters, mapActions } from "vuex";
 
@@ -46,7 +49,7 @@ export default {
     PaymentsDisplay,
     Pagination,
     BarChart,
-    PieChart
+    DoughnutChart
   },
 
   data() {
@@ -113,5 +116,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

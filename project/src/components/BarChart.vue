@@ -49,12 +49,12 @@ export default {
                 cutout: "45%",
                 plugins: {
                     title: {
-                    display: true,
-                    position: "bottom",
-                    text: "Подпись",
-                    font: {
-                        size: 32
-                    }
+                        display: true,
+                        position: "bottom",
+                        text: "Подпись",
+                        font: {
+                            size: 32
+                        }
                     },
                     legend: {
                         position: "top",
